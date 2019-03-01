@@ -1,1 +1,2 @@
 "# jennurate" 
+My personal website 👀
