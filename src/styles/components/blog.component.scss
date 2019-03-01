@@ -1,21 +1,15 @@
 .blogish {
     display: flex; 
     flex-direction: column; 
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     width: 80%; 
     max-width: 750px; 
     margin: 0 auto;
-    padding: $spacingMedium;
 }
 
 .blog__post {
     width: inherit;
     padding: $spacingMedium; 
     background-color: $blogBgColor;
-
-    & ul {
-        list-style: none;
-        padding: 0; 
-    }
 }
