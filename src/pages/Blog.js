@@ -1,10 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 import BlogPost from '../components/BlogPost';
 
 class Blog extends React.Component {
 
   render(){
     return(
+      <div>
+      <Link to="/">Go home</Link>
+      <Header title="Plants and Codies"></Header>
+      <section className="blog">
       <BlogPost>
           Hey everyone, it's officially spring in Norway <span role="img" aria-label="Emojis">☀️🌿🇳🇴</span>, I just got my sunscreen <span role="img" aria-label="Emojis">🧴</span>, I'm ready for summer and here's my new blogish! 
           When I think of blogs I imagine all these fancy cookies with glaze on them <span role="img" aria-label="Emojis">🧁</span>, 
@@ -21,6 +27,8 @@ class Blog extends React.Component {
           <br/><br/>
           That's it for now, I'll try to get this thing up and running! But first I want to redo my site, so plz gimme just a tiny piece of patience.
       </BlogPost>
+      </section>
+      </div>
     );
   }
 }

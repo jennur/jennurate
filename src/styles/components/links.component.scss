@@ -1,5 +1,5 @@
 
-p > a {
+a {
   &:visited{
     color: inherit;
   }
@@ -22,8 +22,6 @@ p > a {
   
   .social-media{
     display: inline-flex;
-    position: absolute;
-    bottom: 2rem;
     list-style: none;
     padding: 1rem 0rem;
     margin: 0rem;

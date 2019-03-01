@@ -1,18 +1,20 @@
 import React from 'react';
-import Footer from '../components/Footer';
 import FlashyHeader from '../components/FlashyHeader';
+import bg from '../scripts/starBackground';
 
 class Home extends React.Component {
 
   render(){
     return(
-        <div>
+        <section>
         <div id="bg"></div>
         <FlashyHeader />
-        <Footer />
-        </div>
+        </section>
     );
   }
+  componentDidMount () {
+    bg();
+}
 }
 
 export default Home; 

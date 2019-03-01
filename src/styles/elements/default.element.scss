@@ -2,4 +2,5 @@ body{
     font-family: $text-font;
     color: lighten($bg-color, 90%);
     letter-spacing: 0.05rem;
+    background-color: $bg-color;
 }
