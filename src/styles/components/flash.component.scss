@@ -1,7 +1,7 @@
 .display-content{
     display: flex;
     width: 100%;
-    height: 100vh;
+    min-height: 500px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -13,4 +13,19 @@
     letter-spacing: 0.05rem;
     color: transparentize(lighten($bg-color, 80%), 0.4);
     @include vendor(user-select, none);
+  }
+
+  .flashy__links {
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none; 
+    padding: $spacingMedium;
+    margin: 0;
+    & li {
+      padding: $spacingSmall;
+    }
+
+
   }

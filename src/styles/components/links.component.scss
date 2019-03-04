@@ -10,8 +10,10 @@ a {
 }
 .display-link{
     font-size: 1.5rem;
+    color: transparentize(lighten($bg-color, 80%), 0.4);
+    @include vendor(transition, 0.5s);
     &:hover{
-      color: lighten($bg-color, 80%);
+      color: transparentize(lighten($bg-color, 90%), 0.2);
       text-decoration: none;
       cursor: pointer;
     }
