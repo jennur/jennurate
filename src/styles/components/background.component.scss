@@ -10,8 +10,8 @@
   
   .dot{
     display: block;
-    width: 0.2rem;
-    height: 0.2rem;
+    width: 3px;
+    height: 3px;
     background: radial-gradient(lighten($bg-color, 65%), $bg-color);
     border-radius: 50%;
     position: absolute;

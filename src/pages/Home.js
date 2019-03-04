@@ -14,7 +14,7 @@ class Home extends React.Component {
   }
   componentDidMount () {
     bg();
-}
+  }
 }
 
 export default Home; 
