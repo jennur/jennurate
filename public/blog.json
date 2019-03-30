@@ -1,19 +1,38 @@
 {
-	"name": "Plants and Codies",
+  "name": "<Plants/> and Codies",
 	"author": "Jenny Bonsak",
 	"blogposts": [
     {
-      "id": 3,
+      "id": 4,
       "title": "",
-      "date": "04 March 2019",
+      "date": "30 March 2019",
       "comments": [{
         "id": "",
         "name": "",
         "message": ""
         }],
       "post": [],
-      "imageUrl": "",
-      "imageCaption": ""
+      "imageUrl": "assets/apple-babies.png",
+      "imageCaption": "🍎These are apple seeds I've kept in the fridge inside a zip-lock bag since january. I'll keep them in there for a few more weeks before I plant them!"
+    },
+    {
+      "id": 3,
+      "title": "",
+      "date": "30 March 2019",
+      "comments": [{
+        "id": "",
+        "name": "",
+        "message": ""
+        }],
+      "post": ["After that last picture was taken ⬇, I went away for a few days. When I got back home, all my peppers and tomatoes looked reeeally sad due to, of course, lack of water! ",
+        "In a crazy moment where my brain stopped and the love for my plants just exploded and I thought *WATER IS NOT ENOUGH, WATER IS NOT ENOUGH* 🧠🚨💓💥, I gave them what I didn't quite realize was CONCENTRATED fertilizer. ☠️ ",
+        "Previously I've been really careful with this stuff and added maybe something like 2 table spoons in 1.5 liters of water (in case it was concentrated - well I know now)... but not this time. ",
+        "Can you imagine what happened? Yes, of course they all died! I ended up mourning for a few days before I planted new ones and they started to sprout. ",
+        "What's really cool tho, is that after I desperately tried to leach the soil of the tomatoes, by advice from the Google, my tomatoes died, but after a few days some new ones showed up! 🌱 ",
+        "Maybe they just needed a fertilizer boost to sprout! They grow fast too. I'm happy. "
+        ],
+      "imageUrl": "assets/new-tomatoes.png",
+      "imageCaption": "The new tomatoes. 🍅 Look at them! All fresh and happy!"
     },
     {
       "id": 2,
@@ -37,18 +56,18 @@
         "name": "",
         "message": ""
         }],
-      "post": ["Hey everyone, it's officially spring in Norway ☀️🌿🇳🇴, I just got my sunscreen 🧴, I'm ready for summer and here's my new blogish!",
-        "When I think of blogs I imagine all these fancy cookies with glaze on them🧁, pink lipsticks💄 and outfit of the day👘, that 's why I couldn't help calling this a blogish.",
-        "Don 't get me wrong, I 'm a girl, I like lipstick, but most likely there will be no cookies to find here, and especially not an outfit of the day - but who knows, sometimes I surprise myself.",
-        "You might risk bumping into some plants here, though!🌱",
-        "I love my plants, they 're my babies.",
-        "I have new ones born every once in a while, as I plant the babies of everything I eat.",
-        "I 'm just too curious about what the mother looked like as a baby to keep myself from letting them outgrow my house. 🏡",
+      "post": ["Hey everyone, it's officially spring in Norway ☀️🌿🇳🇴, I just got my sunscreen 🧴, I'm ready for summer and here's my new blogish! ",
+        "When I think of blogs I imagine all these fancy cookies with glaze on them🧁, pink lipsticks💄 and outfit of the day👘, that 's why I couldn't help calling this a blogish. ",
+        "Don 't get me wrong, I 'm a girl, I like lipstick, but most likely there will be no cookies to find here, and especially not an outfit of the day - but who knows, sometimes I surprise myself. ",
+        "You might risk bumping into *some* plants here, though!🌱 ",
+        "I love my plants, they 're my babies. ",
+        "I have new ones born every once in a while, as I plant the babies of everything I eat. ",
+        "I 'm just too curious about what the mother looked like as a baby to keep myself from letting them outgrow my house. 🏡 ",
         "Anyplants🌴(I 'm about to grow a palm tree..), I just want to share the things I'm excited about.",
         "So here goes.",
-        "I usually put all my stuff on GitHub, but that 's just not as satisfying, so that's why I 'm here 🤠.",
-        "I feel pretty confident that this will end up being about tech and plants, so I guess I might as well just call it Plants and Codies.",
-        "That 's it for now, I'll try to get this thing up and running!But first I want to redo my site, so plz gimme just a tiny piece of patience."
+        "I usually put all my stuff on GitHub, but that 's just not as satisfying, so that's why I 'm here 🤠. ",
+        "I feel pretty confident that this will end up being about tech and plants, so I guess I might as well just call it Plants and Codies. ",
+        "That 's it for now, I'll try to get this thing up and running!But first I want to redo my site, so plz gimme just a tiny piece of patience. "
         ],
         "imageUrl": "",
         "imageCaption": ""

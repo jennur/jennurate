@@ -46,7 +46,6 @@ class Blog extends React.Component {
     .then((data) => {
       this.setState({"blog": data });
       this.setState({"isSet": true });
-      console.log(data)
       }
     )
   }

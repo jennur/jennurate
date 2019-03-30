@@ -6,7 +6,7 @@ class FlashyHeader extends React.Component {
     return(
       <div className="display-content">
         <h1 className="title">jennurate</h1>
-        <p>Blogish ~ <Link to="blogish">Plants and Codies</Link></p>
+        <p><Link to="blogish">Plants and Codies</Link></p>
         <ul className="flashy__links">
           <li>
             <a className="display-link" href="http://www.asteroidod.com" title="Asteroid of the Day">AsteroidOD</a>

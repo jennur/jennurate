@@ -6,6 +6,7 @@ import './scripts/starBackground';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Blog from './pages/Blog';
+import About from './pages/About';
 
 
 const history = createBrowserHistory();
@@ -19,6 +20,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/blogish" component={Blog}/>
+          <Route path="/about" component={About}/>
         </Switch>
       </Router>
       <Footer/>
