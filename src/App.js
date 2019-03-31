@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import createBrowserHistory from 'history/createBrowserHistory';
 import './styles/main.scss';
 import './scripts/starBackground';
@@ -16,13 +16,13 @@ class App extends Component {
   render() {
     return (
       <main>
-      <Router history={ history }>
+      <HashRouter history={ history }>
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route path="/blogish" component={Blog}/>
           <Route path="/about" component={About}/>
         </Switch>
-      </Router>
+      </HashRouter>
       <Footer/>
       </main>
     );
