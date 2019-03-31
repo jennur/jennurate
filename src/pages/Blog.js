@@ -27,14 +27,13 @@ class Blog extends React.Component {
   }
   renderBlog(blogposts) {
     let blogPosts = [];
-    console.log(blogposts);
     blogposts.forEach((post, key) => {
-        if(post.imageUrl !== "") {
+        if(post.imageUrl !== "" && post.post.length === 0) {
           blogPosts.push(<BlogPic key={key} src={post.imageUrl}
                  caption={post.date + " ~ " + post.imageCaption}/>);
         }
         if(post.post.length > 0) {
-          blogPosts.push(<BlogPost key={key} date={post.date}>
+          blogPosts.push(<BlogPost key={key} date={post.date} imageUrl={post.imageUrl} imageCaption={post.imageCaption}>
             { post.post }</BlogPost>);
         }
     });
