@@ -5,6 +5,7 @@ class Header extends React.Component {
     return(
         <header className="header">
           <h1>{ this.props.title }</h1>
+          <p>{ this.props.lead }</p>
         </header>
     );
   }

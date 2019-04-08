@@ -1,6 +1,16 @@
-body{
-    font-family: $text-font;
-    color: lighten($bg-color, 90%);
-    letter-spacing: 0.05rem;
-    background-color: $bg-color;
+body {
+  font-family: $text-font;
+  color: lighten($baseColor, 90%);
+  letter-spacing: 0.05rem;
+  background-color: $baseColor;
+}
+
+.main {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2rem;
 }

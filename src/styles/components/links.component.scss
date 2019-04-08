@@ -1,40 +1,30 @@
-
 a {
-  &:visited{
-    color: inherit;
-  }
-  &:hover{
+  color: lighten($baseColor, 60%);
+  @include vendor(transition, 0.2s);
+
+  &:hover {
+    color: lighten($baseColor, 80%);
     text-decoration: none;
     cursor: pointer;
   }
+  &:visited {
+    color: lighten($baseColor, 60%);
+  }
 }
-.display-link{
+
+.social-media {
+  display: inline-flex;
+  list-style: none;
+  padding: 1rem 0rem;
+  margin: 0rem;
+
+  a {
+    padding: 0.5rem;
     font-size: 1.5rem;
-    color: transparentize(lighten($bg-color, 80%), 0.4);
+    color: transparentize(lighten($baseColor, 80%), 0.4);
     @include vendor(transition, 0.5s);
-    &:hover{
-      color: transparentize(lighten($bg-color, 90%), 0.2);
-      text-decoration: none;
-      cursor: pointer;
-    }
-    &:visited{
-      color: inherit;
+    &:hover {
+      color: transparentize(lighten($baseColor, 90%), 0.2);
     }
   }
-  
-  .social-media{
-    display: inline-flex;
-    list-style: none;
-    padding: 1rem 0rem;
-    margin: 0rem;
-  
-    a{
-      padding: 0.5rem;
-      font-size: 1.5rem;
-      color: transparentize(lighten($bg-color, 80%), 0.4);
-      @include vendor(transition, 0.5s);
-      &:hover{
-        color: transparentize(lighten($bg-color, 90%), 0.2);
-      }
-    }
-  }
+}

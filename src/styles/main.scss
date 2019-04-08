@@ -1,18 +1,19 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa|Exo+2');
-
+@import url("https://fonts.googleapis.com/css?family=Thasadith");
 
 /* Settings */
-@import 'settings/mixins.settings.scss';
-@import 'settings/variables.settings.scss';
+@import "./settings/mixins.settings.scss";
+@import "./settings/variables.settings.scss";
 
 /* Components */
-@import 'components/background.component.scss';
-@import 'components/blog.component.scss';
-@import 'components/flash.component.scss';
-@import 'components/footer.component.scss';
-@import 'components/header.component.scss';
-@import 'components/links.component.scss';
+@import "./components/background.component.scss";
+@import "./components/blog.component.scss";
+@import "./components/button.component.scss";
+@import "./components/flash.component.scss";
+@import "./components/footer.component.scss";
+@import "./components/header.component.scss";
+@import "./components/horizontal-line.component.scss";
+@import "./components/links.component.scss";
+@import "./components/portfolio.component.scss";
 
 /* Elements */
-@import 'elements/default.element.scss';
-
+@import "./elements/default.element.scss";

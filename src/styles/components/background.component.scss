@@ -1,19 +1,18 @@
-#bg{
-    display: block;
-    position: fixed;
-    top: 0rem;
-    left: 0rem;
-    width: $bg-width;
-    height: $bg-height;
-    z-index: -999;
-  }
-  
-  .dot{
-    display: block;
-    width: 3px;
-    height: 3px;
-    background: radial-gradient(lighten($bg-color, 65%), $bg-color);
-    border-radius: 50%;
-    position: absolute;
-  }
-  
+#bg {
+  display: block;
+  position: fixed;
+  top: 0rem;
+  left: 0rem;
+  width: $bg-width;
+  height: $bg-height;
+  z-index: -999;
+}
+
+.dot {
+  display: block;
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(lighten($baseColor, 65%), $baseColor);
+  border-radius: 50%;
+  position: absolute;
+}

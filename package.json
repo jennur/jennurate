@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "d3": "^5.9.1",
+    "firebase": "^5.9.2",
     "font-awesome": "^4.7.0",
     "node-sass": "^4.11.0",
     "react": "^16.8.3",
