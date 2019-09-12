@@ -14,3 +14,13 @@ body {
 h1 {
   font-size: 2rem;
 }
+
+.center-content {
+  max-width: 500px;
+  margin: 10px auto;
+}
+
+.center-content iframe {
+  max-width: 500px;
+  width: 95%;
+}

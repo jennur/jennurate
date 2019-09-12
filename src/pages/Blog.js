@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import BlogPost from "../components/BlogPost";
 import BlogPic from "../components/BlogPic";
@@ -16,18 +15,19 @@ class Blog extends React.Component {
   render() {
     return (
       <section className="main">
-        <Link className="button--home" to="/">
-          ⇦ Go home
-        </Link>
         <Header
-          title={this.state.isSet ? this.state.blog.name : "Still loading?"}
+          title={
+            this.state.isSet
+              ? this.state.blog.name
+              : "Loading Plants and Codies"
+          }
           lead={this.state.blog.introduction}
         />
         <div className="blog">
           {this.state.isSet ? (
             this.renderBlog(this.state.blog.blogposts)
           ) : (
-            <BlogPost>Still loading content... </BlogPost>
+            <BlogPost>Loading content... </BlogPost>
           )}
         </div>
       </section>
@@ -40,6 +40,7 @@ class Blog extends React.Component {
         blogPosts.push(
           <BlogPic
             key={key}
+            id={post.id}
             src={post.imageUrl}
             caption={post.date + " ~ " + post.imageCaption}
           />
@@ -49,6 +50,7 @@ class Blog extends React.Component {
         blogPosts.push(
           <BlogPost
             key={key}
+            id={post.id}
             date={post.date}
             imageUrl={post.imageUrl}
             imageCaption={post.imageCaption}

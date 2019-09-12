@@ -1,20 +1,19 @@
-import React from 'react';
-import FlashyHeader from '../components/FlashyHeader';
-import bg from '../scripts/starBackground';
+import React from "react";
+import FlashyHeader from "../components/FlashyHeader";
+import bg from "../scripts/starBackground";
 
 class Home extends React.Component {
-
-  render(){
-    return(
-        <section>
-        <div id="bg"></div>
+  render() {
+    return (
+      <section>
+        <div id="bg" />
         <FlashyHeader />
-        </section>
+      </section>
     );
   }
-  componentDidMount () {
+  componentDidMount() {
     bg();
   }
 }
 
-export default Home; 
+export default Home;

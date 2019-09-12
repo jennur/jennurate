@@ -15,3 +15,7 @@
   background-color: lighten($baseColor, 70%);
   color: $baseColor;
 }
+
+.button--home {
+  align-self: flex-start;
+}

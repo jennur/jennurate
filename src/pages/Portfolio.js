@@ -7,9 +7,6 @@ class Portfolio extends React.Component {
   render() {
     return (
       <section className="main">
-        <Link className="button--home" to="/">
-          ⇦ Go home
-        </Link>
         <Header title="Portfolio" />
         <span className="horizontal-line" />
 

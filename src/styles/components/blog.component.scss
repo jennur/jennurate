@@ -9,7 +9,7 @@
 }
 
 .blog__post {
-  width: inherit;
+  width: 100%;
   padding: $spacingMedium;
   background-color: $blogBgColor;
   margin: $spacingMedium 0 $spacingMedium 0;
@@ -22,6 +22,15 @@
 
   & img {
     width: 100%;
+  }
+}
+
+.blog__text {
+  width: inherit;
+
+  &--narrow {
+    width: 70%;
+    margin: 0 auto;
   }
 }
 

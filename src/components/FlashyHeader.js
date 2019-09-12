@@ -6,14 +6,14 @@ class FlashyHeader extends React.Component {
     return (
       <div className="display-content">
         <h1 className="title">jennurate</h1>
-        <p>
-          <Link className="button" to="blogish">
-            Plants and Codies
+        <div className="flash__buttons-container">
+          <Link className="button" to="/about">
+            About
           </Link>
           <Link className="button" to="/portfolio">
             Portfolio
           </Link>
-        </p>
+        </div>
       </div>
     );
   }

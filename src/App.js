@@ -5,7 +5,6 @@ import "./styles/main.scss";
 import "./scripts/starBackground";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
-import Blog from "./pages/Blog";
 import Portfolio from "./pages/Portfolio";
 import About from "./pages/About";
 
@@ -16,7 +15,6 @@ class App extends Component {
         <HashRouter>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/blogish" component={Blog} />
             <Route path="/portfolio" component={Portfolio} />
             <Route path="/about" component={About} />
           </Switch>

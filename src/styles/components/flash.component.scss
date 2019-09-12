@@ -7,23 +7,19 @@
   align-items: center;
 }
 
+.flash__buttons-container  {
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
 .title {
   font-family: $head-font;
-  font-size: 5rem;
+  @media screen and (min-width: 600px) {
+    font-size: 5rem;
+  }
+  font-size: 4rem;
   letter-spacing: 0.05rem;
   color: transparentize(lighten($baseColor, 80%), 0.4);
   @include vendor(user-select, none);
-}
-
-.flashy__links {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: $spacingMedium;
-  margin: 0;
-  & li {
-    padding: $spacingSmall;
-  }
 }
