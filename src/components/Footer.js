@@ -2,6 +2,7 @@ import React from "react";
 
 export class Footer extends React.Component {
   render() {
+    let year = new Date().getFullYear();
     return (
       <footer className="footer">
         <ul className="social-media">
@@ -26,7 +27,9 @@ export class Footer extends React.Component {
             </a>
           </li>
         </ul>
-        <p className="copyright-notice">&copy; Jennurate All Rights Reserved</p>
+        <p className="copyright-notice">
+          &copy; {year} Jennurate All Rights Reserved
+        </p>
       </footer>
     );
   }
