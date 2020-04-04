@@ -10,11 +10,21 @@
   justify-content: center;
 }
 .portfolio-item-wrapper {
-  flex-basis: calc(50% - 40px);
-  max-width: 400px;
-  margin: 20px;
+  flex-basis: 100%;
+  max-width: 100%;
+  margin-top: 20px;
   background-color: $blogBgColor;
   border-radius: 5px;
+  @media screen and (min-width: 750px) {
+    flex-basis: calc(50% - 10px);
+  }
+  &:nth-child(2n + 1) {
+    margin-right: 0px;
+    margin-left: 0px;
+    @media screen and (min-width: 750px) {
+      margin-right: 20px;
+    }
+  }
 }
 
 .portfolio-item {
