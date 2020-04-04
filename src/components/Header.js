@@ -6,7 +6,7 @@ class Header extends React.Component {
     return (
       <header className="header">
         <Link className="button--home" to="/">
-          ⇦ Go home
+          ⇦ Go back
         </Link>
         <h1>{this.props.title}</h1>
         <p>{this.props.lead}</p>
