@@ -1,0 +1,115 @@
+@import "./variables.scss";
+
+
+.app {
+  min-height: 100vh;
+  font-family: $bodyFont;
+  color: white;
+  &-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: $spacingMd $spacingLg;
+    z-index: 999;
+
+    .site-title {
+      display: inline-block;
+      font-size: $fontSizeLg;
+      font-family: $headingFont;
+      text-decoration: none;
+      user-select: none;
+      background-color: #0c0c0e;
+      padding: 0px $spacingSm;
+      z-index:999;
+    }
+    nav {
+      z-index: 999;
+
+      .link {
+        display: inline-block;
+        margin: 0px $spacingMd;
+        color: $white;
+        margin-bottom: 2px;
+        background-color: $darkGray;
+        text-decoration: none;
+        cursor: pointer;
+        &:hover{
+          margin-bottom: 0px;
+        }
+      }
+    }
+  }
+  &.blue-green {
+    .site-title {color: $blueGreen;}
+    .link{
+      border-bottom: 2px solid $blueGreen;
+      &:hover{
+        border-bottom: 4px solid $blueGreen;
+      }
+    }
+    .button {
+      background-color: $blueGreen;
+    }
+  }
+  &.red {
+    .site-title {color: $red;}
+    .link{
+      border-bottom: 2px solid $red;
+      &:hover{
+        border-bottom: 4px solid $red;
+      }
+    }
+    .button {
+      background-color: $red;
+    }
+  }
+  &.orange{
+    .site-title {color: $orange;}
+    .link{
+      border-bottom: 2px solid $orange;
+      &:hover{
+        border-bottom: 4px solid $orange;
+      }
+    }
+    .button {
+      background-color: $orange;
+    }
+  }
+  &.blue {
+    .site-title { color: $blue;}
+    .link{
+      border-bottom: 2px solid $blue;
+      &:hover{
+        border-bottom: 4px solid $blue;
+      }
+    }
+    .button {
+      background-color: $blue;
+    }
+  }
+  &.purple{
+    .site-title {color: $purple;}
+    .link{
+      border-bottom: 2px solid $purple;
+      &:hover{
+        border-bottom: 4px solid $purple;
+      }
+    }
+    .button {
+      background-color: $purple;
+    }
+  }
+  &.yellow {
+    .site-title {color: $yellow;}
+    .link{
+      border-bottom: 2px solid $yellow;
+      &:hover{
+        border-bottom: 4px solid $yellow;
+      }
+    }
+    .button {
+      background-color: $yellow;
+    }
+  }
+}

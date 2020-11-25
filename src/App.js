@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import './styles/App.scss';
+import DrawingCanvas from "./components/DrawingCanvas";
+import About from "./components/About";
+import Portfolio from "./components/Portfolio";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props){
+    super(props);
+    this.state =  {
+      titleColorClass: "orange"
+    }
+    this.changeColor = this.changeColor.bind(this);
+  }
+  render() {
+    return (
+      <Router>
+        <div className={`app ${this.state.titleColorClass}`} onClick={this.changeColor}>
+          <header className="app-header">
+            <Link to="/" className="site-title">jennurate</Link>
+            <nav>
+              <Link to="/about" className="link">About</Link>
+              <Link to="/portfolio" className="link">Portfolio</Link>
+            </nav>
+          </header>
+          <Switch>
+            <Route exact path="/about" component={About}/>
+            <Route exact path="/portfolio"component={Portfolio}/>
+            <Route exact path="/" component={DrawingCanvas}/>
+          </Switch>
+        </div>
+      </Router>
+    );
+  }
+  changeColor(){
+    let randomNum = Math.abs(Math.round(Math.random()*10) - 5);
+    let colors = ["red", "orange", "blue", "purple", "blue-green", "yellow"];
+    let titleColorClass = colors[randomNum];
+    this.setState({ titleColorClass });
+  }
+  
 }
 
 export default App;

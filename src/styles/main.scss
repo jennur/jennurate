@@ -1,0 +1,21 @@
+@import "./variables.scss";
+
+* {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+html, body {
+  background-color: $darkGray;
+}
+
+.button {
+  padding: $spacingSm $spacingMd;
+  outline: none;
+  border: 3px solid $darkGray;
+  border-radius: $spacingSm;
+  color: $white;
+  font-family: $headingFont;
+  user-select: none;
+  cursor: pointer;
+}
