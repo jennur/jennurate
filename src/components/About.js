@@ -6,6 +6,7 @@ class About extends React.Component {
     return (
       <section class="about">
         <h2 style={{color: "white"}}>About</h2>
+        <p>This site is under construction, stay tuned 👩‍💻</p>
       </section>
     )
   }
