@@ -44,7 +44,7 @@ class DrawingCanvas extends React.Component {
       )
   }
   draw(e){
-    if(e.originalEvent && e.originalEvent.touches) e.preventDefault();
+    if(e.touches) e.preventDefault();
     if(this.state.mouseDown){
       let ctx = this.state.ctx;
       ctx.lineWidth++;
@@ -53,8 +53,8 @@ class DrawingCanvas extends React.Component {
     this.state.ctx.beginPath();
     if(e.offsetX) {
       this.state.ctx.lineTo(e.offsetX, e.offsetY);
-    } else if(e.originalEvent && e.originalEvent.touches && e.originalEvent.touches[0].clientX){
-      this.state.ctx.lineTo(e.originalEvent.touches[0].clientX, e.originalEvent.touches[0].clientY);
+    } else if(e.touches && e.touches[0].clientX){
+      this.state.ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
     }
     this.state.ctx.stroke();
   }
@@ -99,8 +99,8 @@ class DrawingCanvas extends React.Component {
     this.setState({ctx});
     canvas.addEventListener('mousemove', (e) => this.draw(e));
 
-    canvas.addEventListener('touchstart', (e) => this.draw(e));
-    canvas.addEventListener('touchmove', (e) => this.draw(e));
+    canvas.addEventListener('touchstart', (e) => this.draw(e), {passive: false});
+    canvas.addEventListener('touchmove', (e) => this.draw(e), {passive: false});
 
     canvas.addEventListener('mousedown', (e) => this.increaseBrushSize(e));
     canvas.addEventListener('mouseup', (e) => this.resetBrushSize(e));
