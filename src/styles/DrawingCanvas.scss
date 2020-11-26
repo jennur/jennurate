@@ -3,34 +3,43 @@
 .drawing-canvas {
   width: 100%;
 
-  .button {
-    position: absolute;
-    bottom: $spacingLg;
-    left: $spacingLg;
-    z-index: 999;
-  }
-
-  .side-bar{
+  .bottom-bar{
     position: absolute;
     bottom: $spacingLg;
     width: 100%;
-    margin: $spacing2XL $spacingLg;
     z-index: 999;
     pointer-events: none;
 
+    .button {
+      position: absolute;
+      bottom: 0px;
+      left: auto;
+      right: $spacingLg;
+      z-index: 9999;
+      pointer-events: all;
+      @media screen and (min-width: $mobileWidth){
+        left: $spacingLg;
+      }
+      &-icon {
+        margin-right: $spacingSm;
+      }
+    }
 
     .color-picker {
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-
+      left: $spacingMd;
+      bottom: 0px;
+      @media screen and (min-width: $mobileWidth){
+        left: 50%;
+        transform: translateX(-50%);
+      }
       span {
         display: inline-block;
         width: 32px;
         height: 32px;
         border: 7px solid $darkGray;
         border-radius: 50%;
-        margin: 0px $spacingMd $spacingMd 0px;
+        margin: 0px $spacingSm;
         cursor: pointer;
         pointer-events: all;
         transition: 0.3s;

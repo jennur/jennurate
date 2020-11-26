@@ -10,8 +10,12 @@
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    padding: $spacingMd $spacingLg;
+    padding: $spacingMd;
     z-index: 999;
+    user-select: none;
+    @media screen and (min-width: $mobileWidth){
+      padding: $spacingMd $spacingLg;
+    }
 
     .site-title {
       display: inline-block;
@@ -51,6 +55,9 @@
     .button {
       background-color: $blueGreen;
     }
+    .icon path {
+      fill: $blueGreen;
+    }
   }
   &.red {
     .site-title {color: $red;}
@@ -62,6 +69,9 @@
     }
     .button {
       background-color: $red;
+    }
+    .icon path {
+      fill: $red;
     }
   }
   &.orange{
@@ -75,6 +85,9 @@
     .button {
       background-color: $orange;
     }
+    .icon path {
+      fill: $orange;
+    }
   }
   &.blue {
     .site-title { color: $blue;}
@@ -86,6 +99,9 @@
     }
     .button {
       background-color: $blue;
+    }
+    .icon path {
+      fill: $blue;
     }
   }
   &.purple{
@@ -99,6 +115,9 @@
     .button {
       background-color: $purple;
     }
+    .icon path {
+      fill: $purple;
+    }
   }
   &.yellow {
     .site-title {color: $yellow;}
@@ -110,6 +129,10 @@
     }
     .button {
       background-color: $yellow;
+      color: $darkGray;
+    }
+    .icon path {
+      fill: $yellow;
     }
   }
 }

@@ -1,3 +1,5 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {faDownload} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import "../styles/DrawingCanvas.scss";
 
@@ -14,40 +16,46 @@ class DrawingCanvas extends React.Component {
     }
   }
   render(){
+    console.log("Window:", window.innerWidth)
+    let buttonText = window.innerWidth > 900 ? "Download my masterpiece!" : "";
+    let colors = ["#2eb1bd", "#d13333", "#a1258b", "#db5d23", "#e9d735"];
+    let swatches = colors.map((color, index) => {
+      return (
+        <span style={{backgroundColor: color}} 
+              onClick={event => this.setColor(event,color)}
+              key={index}
+        >
+        </span>
+      )
+    })
     return (
       <section className="drawing-canvas">
-        <div className="side-bar">
+        <canvas id="canvas" style={{width: window.innerWidth, height: window.innerHeight}}></canvas>
+        <div className="bottom-bar">
+        <button className="button" onClick={this.downloadCanvas}>
+            <FontAwesomeIcon className="button-icon" icon={faDownload}/>
+            {buttonText}
+          </button>   
           <div className="color-picker">
-            <span style={{backgroundColor: '#2eb1bd'}} 
-                  onClick={event => this.setColor(event,"#2eb1bd")}>
-            </span>
-            <span style={{backgroundColor: '#d13333'}} 
-                  onClick={event => this.setColor(event,"#d13333")}>
-            </span>
-            <span style={{backgroundColor: '#a1258b'}} 
-                  onClick={event => this.setColor(event,"#a1258b")}>
-            </span>
-            <span style={{backgroundColor: '#db5d23'}} 
-                  onClick={event => this.setColor(event,"#db5d23")}>
-            </span>
-            <span style={{backgroundColor: '#e9d735'}} 
-                  onClick={event => this.setColor(event,"#e9d735")}>
-            </span>
+            {swatches}
           </div>
         </div>
-        <canvas id="canvas" style={{width: window.innerWidth, height: window.innerHeight}}></canvas>
-          <button className="button" onClick={this.downloadCanvas}>Download my masterpiece!</button>      
-        </section>
+      </section>
       )
   }
   draw(e){
+    if(e.touches) e.preventDefault();
     if(this.state.mouseDown){
       let ctx = this.state.ctx;
       ctx.lineWidth++;
       this.setState({ctx});
     }
     this.state.ctx.beginPath();
-    this.state.ctx.lineTo(e.offsetX + 0.5, e.offsetY);
+    if(e.offsetX) {
+      this.state.ctx.lineTo(e.offsetX, e.offsetY);
+    } else if(e.touches && e.touches[0].clientX){
+      this.state.ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
+    }
     this.state.ctx.stroke();
   }
   setColor(event, color){
@@ -90,6 +98,10 @@ class DrawingCanvas extends React.Component {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     this.setState({ctx});
     canvas.addEventListener('mousemove', (e) => this.draw(e));
+
+    canvas.addEventListener('touchstart', (e) => this.draw(e));
+    canvas.addEventListener('touchmove', (e) => this.draw(e));
+
     canvas.addEventListener('mousedown', (e) => this.increaseBrushSize(e));
     canvas.addEventListener('mouseup', (e) => this.resetBrushSize(e));
   }
