@@ -2,7 +2,13 @@
 
 .drawing-canvas {
   width: 100%;
-
+  
+  .browser-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
   .bottom-bar{
     position: absolute;
     bottom: $spacingLg;
@@ -15,10 +21,14 @@
       bottom: 0px;
       left: auto;
       right: $spacingLg;
+      width: 45px;
       z-index: 9999;
       pointer-events: all;
       @media screen and (min-width: $mobileWidth){
         left: $spacingLg;
+      }
+      @media screen and (min-width: $tabletWidth){
+        width: 200px;
       }
       &-icon {
         margin-right: $spacingSm;

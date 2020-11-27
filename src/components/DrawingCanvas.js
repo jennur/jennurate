@@ -16,7 +16,6 @@ class DrawingCanvas extends React.Component {
     }
   }
   render(){
-    console.log("Window:", window.innerWidth)
     let buttonText = window.innerWidth > 900 ? "Download my masterpiece!" : "";
     let colors = ["#2eb1bd", "#d13333", "#a1258b", "#db5d23", "#e9d735"];
     let swatches = colors.map((color, index) => {
@@ -30,10 +29,12 @@ class DrawingCanvas extends React.Component {
     })
     return (
       <section className="drawing-canvas">
-        <canvas id="canvas" style={{width: window.innerWidth, height: window.innerHeight}}></canvas>
+        <canvas id="canvas" style={{width: window.innerWidth, height: window.innerHeight}}>
+          <a className="browser-button" href="https://www.google.com/intl/no/chrome/">Download Chrome</a>
+        </canvas>
         <div className="bottom-bar">
         <button className="button" onClick={this.downloadCanvas}>
-            <FontAwesomeIcon className="button-icon" icon={faDownload}/>
+            <FontAwesomeIcon className={buttonText && 'button-icon'} icon={faDownload}/>
             {buttonText}
           </button>   
           <div className="color-picker">
@@ -44,16 +45,18 @@ class DrawingCanvas extends React.Component {
       )
   }
   draw(e){
-    if(e.touches) e.preventDefault();
+    e.preventDefault();
     if(this.state.mouseDown){
       let ctx = this.state.ctx;
       ctx.lineWidth++;
       this.setState({ctx});
     }
     this.state.ctx.beginPath();
-    if(e.offsetX) {
-      this.state.ctx.lineTo(e.offsetX, e.offsetY);
+    if(e.clientX) {
+      this.state.ctx.moveTo(e.clientX-0.5, e.clientY-0.5);
+      this.state.ctx.lineTo(e.clientX, e.clientY);
     } else if(e.touches && e.touches[0].clientX){
+      this.state.ctx.moveTo(e.clientX-0.5, e.clientY-0.5);
       this.state.ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
     }
     this.state.ctx.stroke();
@@ -97,13 +100,13 @@ class DrawingCanvas extends React.Component {
     ctx.fillStyle = "#0c0c0e";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     this.setState({ctx});
-    canvas.addEventListener('mousemove', (e) => this.draw(e));
+    canvas.addEventListener('mousemove', (e) => this.draw(e),{passive: false});
 
     canvas.addEventListener('touchstart', (e) => this.draw(e), {passive: false});
     canvas.addEventListener('touchmove', (e) => this.draw(e), {passive: false});
 
-    canvas.addEventListener('mousedown', (e) => this.increaseBrushSize(e));
-    canvas.addEventListener('mouseup', (e) => this.resetBrushSize(e));
+    canvas.addEventListener('mousedown', (e) => this.increaseBrushSize(e), {passive: false});
+    canvas.addEventListener('mouseup', (e) => this.resetBrushSize(e), {passive: false});
   }
 }
 
