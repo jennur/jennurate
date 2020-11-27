@@ -56,7 +56,7 @@ class DrawingCanvas extends React.Component {
       this.state.ctx.moveTo(e.clientX-0.5, e.clientY-0.5);
       this.state.ctx.lineTo(e.clientX, e.clientY);
     } else if(e.touches && e.touches[0].clientX){
-      this.state.ctx.moveTo(e.clientX-0.5, e.clientY-0.5);
+      this.state.ctx.moveTo(e.touches[0].clientX-0.5, e.touches[0].clientY-0.5);
       this.state.ctx.lineTo(e.touches[0].clientX, e.touches[0].clientY);
     }
     this.state.ctx.stroke();
