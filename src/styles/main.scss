@@ -43,7 +43,10 @@ html, body {
     font-size: $fontSizeLg;
     min-width: max-content;
   }
-
+  h3.sub-heading {
+    font-size: $fontSizeLg;
+    margin-top: $spacingXL;
+  }
   .content-img {
     max-width: 100%;
     margin: $spacingXL 0px;
@@ -85,6 +88,13 @@ html, body {
 .link {
   color: $white;
   text-decoration: none;
+}
+.pill-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  .pill {
+    margin-bottom: $spacingMd;
+  }
 }
 .pill {
   padding: 1px;

@@ -21,7 +21,23 @@ class About extends React.Component {
     }
   }
   render() {
-
+    let skills = Object.entries(this.skills);
+    skills = skills.map((skillset) => {
+      let tools = skillset[1].map(tool => {
+        return (
+          <span className="pill">{tool}</span>
+        )
+      })
+      return (
+        <div className="skills">
+          <h4>{skillset[0]}</h4>
+          <div className="pill-wrap">
+            {tools}
+          </div>
+        </div>
+      )
+    })
+    
     return (
       <section className="about">
         <img style={this.state.imageTopAnimation} className="picture picture-top" src="/spa.png" alt="It's me at spa" />
@@ -91,7 +107,11 @@ class About extends React.Component {
                 />
             </figure>
             <img className="pinky-gif" src="/pinky.gif" alt="Pinky hair"/>
-            <h3>Contact or stalk</h3>
+            
+            <h3 className="sub-heading">Some of my skills</h3>
+            {skills}
+            
+            <h3 className="sub-heading">Contact or stalk</h3>
             <ul>
               <li>
                 <FontAwesomeIcon className="icon" icon={faEnvelope}/> 
@@ -150,6 +170,11 @@ class About extends React.Component {
         }
     })
     }, 300)
+  }
+  skills = {
+    coding: ["HTML", "CSS", "SCSS", "Less", "JavaScript", "Vuejs", "Nuxtjs", "Reactjs", "Gatsby", "Threejs"],
+    design: ["Adobe Illustrator", "Adobe Photoshop"],
+    ux: ["Sketch", "Figma"]
   }
 }
 

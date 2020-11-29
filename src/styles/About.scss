@@ -15,6 +15,13 @@
     @media screen and (min-width: $desktopWidth){
       max-width: 700px;
     }
+
+    .skills {
+      h4 {
+        text-transform: capitalize;
+        margin: $spacingLg 0px $spacingSm 0px;
+      }
+    }
     .cat-gif {
       display: none;
       @media screen and (min-width: $tabletWidth){
@@ -33,10 +40,6 @@
       @media screen and (min-width: $tabletWidth){
         display: none;
       }
-    }
-    h3 {
-      font-size: $fontSizeMd;
-      margin-top: $spacingXL;
     }
   }
   .picture {
