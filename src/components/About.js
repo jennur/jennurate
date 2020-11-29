@@ -22,14 +22,14 @@ class About extends React.Component {
   }
   render() {
     let skills = Object.entries(this.skills);
-    skills = skills.map((skillset) => {
-      let tools = skillset[1].map(tool => {
+    skills = skills.map((skillset, index) => {
+      let tools = skillset[1].map((tool, skillIndex) => {
         return (
-          <span className="pill">{tool}</span>
+          <span key={`skill-${skillIndex}`} className="pill">{tool}</span>
         )
       })
       return (
-        <div className="skills">
+        <div className="skills" key={`skillset-${index}`}>
           <h4>{skillset[0]}</h4>
           <div className="pill-wrap">
             {tools}

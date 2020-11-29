@@ -30,9 +30,9 @@ class Portfolio extends React.Component {
       } else if (project.bitbucketUrl) {
         sourceCodeUrl = <li><FontAwesomeIcon className="icon" icon={faBitbucket}/><a className="link" target="_blank" rel="noreferrer" href={project.bitbucketUrl}>Bitbucket</a></li>
       }
-      let techStack = project.techStack && project.techStack.map(tech => {
+      let techStack = project.techStack && project.techStack.map((tech, techIndex) => {
         return (
-          <span className="pill">{tech}</span>
+          <span className="pill" key={techIndex}>{tech}</span>
         )
       })
       return (
