@@ -8,12 +8,12 @@ class Portfolio extends React.Component {
   constructor(props){
     super(props);
     let contentAnimations = [];
-
+    let numProjects = this.projects.length;
     this.projects.forEach((project, index) => {
       let movePercent = 20 + index*100;
       contentAnimations.push({
         transform: `translateX(${-movePercent}%)`,
-        opacity: 0
+        opacity: (numProjects-index)/100
       });
     })
 

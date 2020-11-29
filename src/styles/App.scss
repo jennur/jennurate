@@ -16,7 +16,12 @@
       }
     }
     .link:hover { color: $color; }
-    .button { background-color: $color; }
+    .button { 
+      background-color: $color;
+      &:hover {
+        background-color: darken($color,10%);
+      }
+     }
     .icon path { fill: $color; }
     .pill {
       background-color: $color;
@@ -80,7 +85,7 @@
   }
   &.blue-green {
     @include color-settings($blueGreen);
-    .pill, .info.link {
+    .pill, .info.link, .button {
       color: $darkGray;
     }
   }
@@ -98,7 +103,7 @@
   }
   &.yellow {
     @include color-settings($yellow);
-    .pill, .info.link {
+    .pill, .info.link, .button {
       color: $darkGray;
     }
   }
