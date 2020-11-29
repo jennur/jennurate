@@ -103,7 +103,7 @@ class Portfolio extends React.Component {
         or with other users. Create shopping lists manually or from your saved recipes.
       `,
       url: "https://kokebokami.com",
-      gitHubUrl: "https://github/jennur/kokebokami",
+      gitHubUrl: "https://github.com/jennur/kokebokami",
       year: "2020-present"
     },
     {

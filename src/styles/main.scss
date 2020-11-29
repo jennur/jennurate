@@ -89,6 +89,7 @@ html, body {
 .pill {
   padding: 1px;
   margin-right: $spacingMd;
+  user-select: none;
 }
 .text-center {
   text-align: center;
