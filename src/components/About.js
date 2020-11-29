@@ -95,15 +95,15 @@ class About extends React.Component {
             <ul>
               <li>
                 <FontAwesomeIcon className="icon" icon={faEnvelope}/> 
-                <a href="mailto:jenny.bonsak@gmail.com">E-mail</a>
+                <a className="link" target="_blank" rel="noreferrer" href="mailto:jenny.bonsak@gmail.com">E-mail</a>
               </li>
               <li>
                 <FontAwesomeIcon className="icon" icon={faLinkedin}/> 
-                <a href="https://linkedin.com/in/jenny-bonsak">LinkedIn</a>
+                <a className="link" target="_blank" rel="noreferrer"href="https://linkedin.com/in/jenny-bonsak">LinkedIn</a>
               </li>
               <li>
                 <FontAwesomeIcon className="icon" icon={faGithub}/> 
-                <a href="https://github.com/jennur">Github</a>
+                <a className="link" target="_blank" rel="noreferrer"href="https://github.com/jennur">Github</a>
               </li>
             </ul>
           </div>

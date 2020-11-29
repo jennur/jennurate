@@ -2,7 +2,7 @@
 
 .drawing-canvas {
   width: 100%;
-  
+
   .browser-button {
     position: absolute;
     top: 50%;
@@ -28,7 +28,7 @@
         left: $spacingLg;
       }
       @media screen and (min-width: $tabletWidth){
-        width: 200px;
+        width: 240px;
       }
       &-icon {
         margin-right: $spacingSm;

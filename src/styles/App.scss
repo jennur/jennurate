@@ -1,5 +1,33 @@
 @import "./variables.scss";
 
+@mixin color-settings($color) {
+  .site-title { color: $color; }
+    nav .link{
+      border-bottom: 2px solid $color;
+      &:hover{ 
+        border-bottom: 4px solid $color; 
+        color: $white;
+      }
+    }
+    .link:hover { color: $color; }
+    .button { background-color: $color; }
+    .icon path { fill: $color; }
+    .pill {
+      background-color: $color;
+    }
+    .info {
+      background-color: rgba($color,0.5);
+      p {
+        background-color: $color;
+      }
+      @media screen and (min-width: $desktopWidth){
+        background-color: $color;
+      }
+      &.link {
+        color: $white;
+      }
+    }
+}
 
 .app {
   min-height: 100vh;
@@ -45,94 +73,27 @@
     }
   }
   &.blue-green {
-    .site-title {color: $blueGreen;}
-    .link{
-      border-bottom: 2px solid $blueGreen;
-      &:hover{
-        border-bottom: 4px solid $blueGreen;
-      }
-    }
-    .button {
-      background-color: $blueGreen;
-    }
-    .icon path {
-      fill: $blueGreen;
+    @include color-settings($blueGreen);
+    .pill, .info.link {
+      color: $darkGray;
     }
   }
   &.red {
-    .site-title {color: $red;}
-    .link{
-      border-bottom: 2px solid $red;
-      &:hover{
-        border-bottom: 4px solid $red;
-      }
-    }
-    .button {
-      background-color: $red;
-    }
-    .icon path {
-      fill: $red;
-    }
+    @include color-settings($red);
   }
   &.orange{
-    .site-title {color: $orange;}
-    .link{
-      border-bottom: 2px solid $orange;
-      &:hover{
-        border-bottom: 4px solid $orange;
-      }
-    }
-    .button {
-      background-color: $orange;
-    }
-    .icon path {
-      fill: $orange;
-    }
+    @include color-settings($orange);
   }
   &.blue {
-    .site-title { color: $blue;}
-    .link{
-      border-bottom: 2px solid $blue;
-      &:hover{
-        border-bottom: 4px solid $blue;
-      }
-    }
-    .button {
-      background-color: $blue;
-    }
-    .icon path {
-      fill: $blue;
-    }
+    @include color-settings($blue);
   }
   &.purple{
-    .site-title {color: $purple;}
-    .link{
-      border-bottom: 2px solid $purple;
-      &:hover{
-        border-bottom: 4px solid $purple;
-      }
-    }
-    .button {
-      background-color: $purple;
-    }
-    .icon path {
-      fill: $purple;
-    }
+    @include color-settings($purple);
   }
   &.yellow {
-    .site-title {color: $yellow;}
-    .link{
-      border-bottom: 2px solid $yellow;
-      &:hover{
-        border-bottom: 4px solid $yellow;
-      }
-    }
-    .button {
-      background-color: $yellow;
+    @include color-settings($yellow);
+    .pill, .info.link {
       color: $darkGray;
-    }
-    .icon path {
-      fill: $yellow;
     }
   }
 }
