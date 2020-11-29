@@ -41,6 +41,7 @@ html, body {
     background-color: $darkGray;
     padding: 0px $spacingSm;
     font-size: $fontSizeLg;
+    min-width: max-content;
   }
 
   .content-img {

@@ -40,6 +40,9 @@
         transform: rotate(45deg);
         margin-left: 5px;
         box-sizing: content-box;
+        &:hover {
+          transform: rotate(45deg) scale(1.3);
+        }
       }
 
     }
@@ -71,6 +74,10 @@
     }
 
     .color-picker {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
       position: absolute;
       left: $spacingMd;
       bottom: 0px;

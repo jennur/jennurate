@@ -128,7 +128,7 @@ class Portfolio extends React.Component {
       description: `
         Discover today's nearest asteroid and other near earth objects. 
       `,
-      url: "https://asteroidod.netlify.com",
+      url: "https://asteroidod.netlify.app",
       gitHubUrl: "https://github.com/jennur/asteroidod/tree/master/newsite",
       apiUrl: "https://api.nasa.gov/api.html#neows-feed",
       year: "2019"
