@@ -14,6 +14,7 @@ class DrawingCanvas extends React.Component {
       ctx: null,
       mouseDown: false
     }
+    this.resizeCanvas = this.resizeCanvas.bind(this);
   }
   render(){
     let buttonText = window.innerWidth > 900 ? "Download my masterpiece!" : "";
@@ -87,6 +88,37 @@ class DrawingCanvas extends React.Component {
     link.setAttribute("download", "my_jennurate_art.png");
     link.click();
   }
+  resizeCanvas(){
+    let prevCtx = {
+      lineJoin: this.state.ctx.lineJoin,
+      lineCap: this.state.ctx.lineCap,
+      lineWidth: this.state.ctx.lineWidth,
+      strokeStyle: this.state.ctx.strokeStyle,
+      fillStyle: this.state.ctx.fillStyle
+    }
+
+    let canvas = document.getElementById("canvas");
+    let tempCanvas = document.createElement('canvas');
+    let tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    tempCtx.drawImage(canvas, 0, 0);
+
+    let ctx = canvas.getContext('2d');
+    canvas.width = 4 * window.innerWidth;
+    canvas.height = 4 * window.innerHeight;
+    ctx.lineJoin = prevCtx.lineJoin;
+    ctx.lineCap = prevCtx.lineCap;
+    ctx.lineWidth = prevCtx.lineWidth;
+    ctx.strokeStyle = prevCtx.strokeStyle;
+    ctx.fillStyle = prevCtx.fillStyle;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(tempCanvas, 0,0);
+    ctx.scale(4,4);
+
+    this.setState({ctx});
+  }
+
   componentDidMount(){
     const canvas = document.getElementById('canvas');
     let ctx = canvas.getContext('2d');
@@ -100,14 +132,29 @@ class DrawingCanvas extends React.Component {
     ctx.fillStyle = "#0c0c0e";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     this.setState({ctx});
-    canvas.addEventListener('mousemove', (e) => this.draw(e),{passive: false});
-
+    
     canvas.addEventListener('touchstart', (e) => this.draw(e), {passive: false});
     canvas.addEventListener('touchmove', (e) => this.draw(e), {passive: false});
-
+    
+    canvas.addEventListener('mousemove', (e) => this.draw(e),{passive: false});
     canvas.addEventListener('mousedown', (e) => this.increaseBrushSize(e), {passive: false});
     canvas.addEventListener('mouseup', (e) => this.resetBrushSize(e), {passive: false});
+    
+    window.addEventListener('resize', this.resizeCanvas)
   }
+
+  componentWillUnmount() {
+    const canvas = document.getElementById('canvas');
+
+    canvas.removeEventListener('touchstart', this.draw);
+    canvas.removeEventListener('touchmove', this.draw);
+    
+		canvas.removeEventListener('mousemove', this.draw);
+    canvas.removeEventListener('mousedown', this.increaseBrushSize);
+    canvas.removeEventListener('mouseup', this.resetBrushSize);
+
+    window.removeEventListener('resize', this.resizeCanvas)
+	}
 }
 
 export default DrawingCanvas;

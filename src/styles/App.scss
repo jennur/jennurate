@@ -4,6 +4,12 @@
   .site-title { color: $color; }
     nav .link{
       border-bottom: 2px solid $color;
+
+      &-active {
+        border-bottom: 0px;
+        pointer-events: none;
+        color: $color;
+      }
       &:hover{ 
         border-bottom: 4px solid $color; 
         color: $white;
@@ -16,7 +22,7 @@
       background-color: $color;
     }
     .info {
-      background-color: rgba($color,0.5);
+      background-color: rgba($color,0.2);
       p {
         background-color: $color;
       }

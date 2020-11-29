@@ -18,14 +18,8 @@ class Portfolio extends React.Component {
     })
 
     this.state = {
-      contentAnimations,
-      zoomAnimation: {
-        opacity: 0
-      },
-      imageZoomed: null
+      contentAnimations
     }
-    this.zoomImage = this.zoomImage.bind(this);
-    this.unZoomImage = this.unZoomImage.bind(this);
 
   }
   render() {
@@ -72,45 +66,14 @@ class Portfolio extends React.Component {
         </div>
         )
     });
-    let imageZoomed;
-    if(this.state.imageZoomed){
-      imageZoomed = <img  src={this.state.imageZoomed} 
-                          className="image-zoom" 
-                          alt="screenshot"
-                          onClick={this.unZoomImage}
-                          style={this.state.zoomAnimation}
-                    />
-    }
+
     return (
       <section className="portfolio">
-        {imageZoomed}
-        <h2 style={{color: "white"}}>Portfolio</h2>
         <div className="projects">
           {projects}
         </div>
       </section>
     )
-  }
-
-  zoomImage(src){
-    this.setState({imageZoomed: src});
-    setTimeout(() => {
-      this.setState({
-        zoomAnimation: {
-          opacity: 1
-        },
-      })
-    }, 0)
-  }
-  unZoomImage(){
-    this.setState({
-      zoomAnimation: {
-        opacity: 0
-      },
-    })
-    setTimeout(() => {
-      this.setState({imageZoomed: null});
-    }, 500)
   }
 
   componentDidMount(){

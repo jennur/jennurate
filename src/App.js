@@ -3,6 +3,7 @@ import {
   HashRouter as Router,
   Switch,
   Route,
+  NavLink,
   Link
 } from "react-router-dom";
 import './styles/App.scss';
@@ -25,8 +26,8 @@ class App extends React.Component {
           <header className="app-header">
             <Link to="/" className="site-title">jennurate</Link>
             <nav>
-              <Link to="/about" className="link">About</Link>
-              <Link to="/portfolio" className="link">Portfolio</Link>
+              <NavLink to="/about" activeClassName="link-active" className="link">About</NavLink>
+              <NavLink to="/portfolio" activeClassName="link-active" className="link">Portfolio</NavLink>
             </nav>
           </header>
           <Switch>
