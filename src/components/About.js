@@ -174,7 +174,7 @@ class About extends React.Component {
   skills = {
     coding: ["HTML", "CSS", "SCSS", "Less", "JavaScript", "Nodejs", "Vuejs", "Nuxtjs", "Reactjs", "Gatsbyjs", "Threejs"],
     design: ["Adobe Illustrator", "Adobe Photoshop"],
-    ux: ["Sketch", "Figma"]
+    ux: ["Sketch", "Figma", "Responsive web design"]
   }
 }
 
