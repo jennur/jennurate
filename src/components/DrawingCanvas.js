@@ -8,6 +8,7 @@ class DrawingCanvas extends React.Component {
     super(props);
     this.draw = this.draw.bind(this);
     this.setColor = this.setColor.bind(this);
+    this.setLineCap = this.setLineCap.bind(this);
     this.downloadCanvas = this.downloadCanvas.bind(this);
 
     this.state = {
@@ -22,17 +23,33 @@ class DrawingCanvas extends React.Component {
     let swatches = colors.map((color, index) => {
       return (
         <span style={{backgroundColor: color}} 
-              onClick={event => this.setColor(event,color)}
+              onClick={event => this.setColor(event, color)}
               key={index}
         >
         </span>
       )
     })
+    let strokeColor = this.state.ctx ? this.state.ctx.strokeStyle : "#2eb1bd";
     return (
       <section className="drawing-canvas">
         <canvas id="canvas" style={{width: window.innerWidth, height: window.innerHeight}}>
           <a className="browser-button" href="https://www.google.com/intl/no/chrome/">Download Chrome</a>
         </canvas>
+        <div className="side-bar">
+          <span className="line-cap round" 
+                style={{backgroundColor: strokeColor}}
+                onClick={event => this.setLineCap(event,'round')}
+          >
+          </span>
+          <span className="line-cap square"
+                style={{backgroundColor: strokeColor}}
+                onClick={event => this.setLineCap(event,'square')}
+          ></span>
+          <span className="line-cap butt"
+                style={{backgroundColor: strokeColor}}
+                onClick={event => this.setLineCap(event,'butt')}
+          ></span>
+        </div>
         <div className="bottom-bar">
         <button className="button" onClick={this.downloadCanvas}>
             <FontAwesomeIcon className={buttonText && 'button-icon'} icon={faDownload}/>
@@ -47,6 +64,7 @@ class DrawingCanvas extends React.Component {
   }
   draw(e){
     e.preventDefault();
+    e.stopPropagation();
     if(this.state.mouseDown){
       let ctx = this.state.ctx;
       ctx.lineWidth++;
@@ -66,6 +84,12 @@ class DrawingCanvas extends React.Component {
     event.stopPropagation();
     let ctx = this.state.ctx;
     ctx.strokeStyle = color;
+    this.setState({ctx});
+  }
+  setLineCap(event, shape) {
+    event.stopPropagation();
+    let ctx = this.state.ctx;
+    ctx.lineCap = shape;
     this.setState({ctx});
   }
   increaseBrushSize(event){

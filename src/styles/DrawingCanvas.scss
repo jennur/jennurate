@@ -9,6 +9,41 @@
     left: 50%;
     transform: translate(-50%, -50%);
   }
+
+  .side-bar {
+    position: absolute;
+    top: 50%;
+    left: $spacingXL;
+    transform: translateY(-50%);
+    background-color: rgba($darkGray, 0.7);
+    padding: $spacingSm;
+
+    .line-cap {
+      display: block;
+      width: 28px;
+      height: 28px;
+      background-color: $red;
+      margin-bottom: $spacingMd;
+      border: 7px solid $darkGray;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        transform: scale(1.3);
+      }
+
+      &.round {
+        border-radius: 50%;
+      }
+      &.butt {
+        width: 3px;
+        height: 15px;
+        transform: rotate(45deg);
+        margin-left: 5px;
+        box-sizing: content-box;
+      }
+
+    }
+  }
   .bottom-bar{
     position: absolute;
     bottom: $spacingLg;
@@ -39,6 +74,8 @@
       position: absolute;
       left: $spacingMd;
       bottom: 0px;
+      background-color: rgba($darkGray, 0.7);
+      padding: $spacingSm;
       @media screen and (min-width: $mobileWidth){
         left: 50%;
         transform: translateX(-50%);
