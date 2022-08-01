@@ -27,6 +27,7 @@
       border: 7px solid $darkGray;
       cursor: pointer;
       transition: 0.3s;
+
       &:hover {
         transform: scale(1.3);
       }
@@ -34,12 +35,14 @@
       &.round {
         border-radius: 50%;
       }
+
       &.butt {
         width: 3px;
         height: 15px;
         transform: rotate(45deg);
         margin-left: 5px;
         box-sizing: content-box;
+
         &:hover {
           transform: rotate(45deg) scale(1.3);
         }
@@ -47,7 +50,8 @@
 
     }
   }
-  .bottom-bar{
+
+  .bottom-bar {
     position: absolute;
     bottom: $spacingLg;
     width: 100%;
@@ -63,12 +67,15 @@
       z-index: 9999;
       pointer-events: all;
       transition: 0.3s;
+
       @media screen and (min-width: $mobileWidth){
         left: $spacingLg;
       }
+
       @media screen and (min-width: $tabletWidth){
         width: 240px;
       }
+
       &-icon {
         margin-right: $spacingSm;
       }
@@ -84,10 +91,12 @@
       bottom: 0px;
       background-color: rgba($darkGray, 0.7);
       padding: $spacingSm;
+
       @media screen and (min-width: $mobileWidth){
         left: 50%;
         transform: translateX(-50%);
       }
+
       span {
         display: inline-block;
         width: 32px;
@@ -105,6 +114,7 @@
       }
     }
   }
+  
   canvas {
     position: absolute;
     top: 0;

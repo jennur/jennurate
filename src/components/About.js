@@ -31,7 +31,7 @@ class About extends React.Component {
       return (
         <div className="skills" key={`skillset-${index}`}>
           <h4>{skillset[0]}</h4>
-          <div className="pill-wrap">
+          <div className="pills-wrap">
             {tools}
           </div>
         </div>
@@ -39,7 +39,7 @@ class About extends React.Component {
     })
     
     return (
-      <section className="about">
+      <section className="about main-content">
         <img style={this.state.imageTopAnimation} className="picture picture-top" src="/spa.png" alt="It's me at spa" />
         <img style={this.state.imageBottomAnimation} className="picture picture-bottom" src="/eskimo.png" alt="It's me as eskimo" />
 

@@ -1,10 +1,6 @@
 @import "./variables.scss";
 
 .about {
-  margin: $spacingMd;
-  @media screen and (min-width: $tabletWidth){
-    margin: $spacingXL;
-  }
 
   .content-box {
     max-width: 600px;

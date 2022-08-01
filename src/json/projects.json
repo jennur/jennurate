@@ -1,0 +1,93 @@
+{
+  "projects": [    
+    {
+      "title": "Kokebokami",
+      "type": "Web Service",
+      "techStack": ["Vue/Nuxt", "Firebase"],
+      "imgSrc": "/kokebokami_screenshot.png",
+      "description": "An online cookbook service where you can upload your personal recipes, and save external ones in an organized way. Share, or don't share, publicly or with other users. Create shopping lists manually or from your saved recipes.",
+      "url": "https://kokebokami.com",
+      "repo": {
+        "name": "GitHub",
+        "url": "https://github.com/jennur/kokebokami"
+      },
+      "year": "2019-present"
+    },
+    {
+      "title": "Asterix",
+      "type": "Simulation Service",
+      "techStack": ["Vue", "Threejs"],
+      "imgSrc": "/asterix_screenshot.png",
+      "description": "GUI for a multibody simulation service. The first goal is to make the user able to configure his/her own simulation with selected bodies and run the simulation, discovering the trajectories created by the gravitational forces.",
+      "url": "https://asterix-sim.herokuapp.com",
+      "repo": {
+        "name": "BitBucket",
+        "url": "https://bitbucket.org/whoisthegingerbreadman/asteroids/src/master/asteroid_viz/Web/gui/"
+      },
+      "year": "2020-present"
+    },
+    {
+      "title": "Asteroid of the day",
+      "type": "Web Page",
+      "techStack": ["React"],
+      "imgSrc": "/asteroidod_screenshot.png",
+      "description": "Discover today's nearest asteroid and other near earth objects.",
+      "url": "https://asteroidod.netlify.app",
+      "repo": {
+        "name": "GitHub",
+        "url": "https://github.com/jennur/asteroidod/tree/master/newsite"
+      },
+      "apis": [
+        {
+          "name": "NEOWS",
+          "url": "https://api.nasa.gov/api.html#neows-feed"
+        }
+      ],
+      "year": "2019"
+    },
+    {
+      "title": "Test My Site",
+      "type": "Web Page/Service",
+      "techStack": ["Vuejs", "SCSS"],
+      "imgSrc": "/tms_screenshot.png",
+      "description": "Tool for testing the SEO, performance and accessibility of your site.",
+      "url": "https://testsiteperformance.herokuapp.com/",
+      "repo": {
+        "name": "GitHub",
+        "url": "https://github.com/jennur/test-my-site"
+      },
+      "apis": [
+        { 
+          "name": "Google PageSpeed Insight",
+          "url": "https://developers.google.com/speed/docs/insights/v5/get-started"
+        }
+      ],
+      "year": "2019"
+    },
+    {
+      "title": "A Game of Ice and Fire",
+      "type": "Web Page/Game",
+      "techStack": ["HTML", "JavaScript", "CSS"],
+      "imgSrc": "/goif_screenshot.png",
+      "description": "A digital Game of Thrones board game.",
+      "url": "https://icefireboard.netlify.app/",
+      "repo": {
+        "name": "GitHub",
+        "url": "https://github.com/jennur/gameoficeandfire"
+      },
+      "apis": [
+        { 
+          "name": "An API of Ice and Fire",
+          "url": "https://www.anapioficeandfire.com/api/characters/"
+          
+        },
+        { 
+          "name": "GOT Quotes",
+          "url": "https://got-quotes.herokuapp.com/quotes"
+          
+        }
+      ],
+      "year": "2018"
+    }
+  ]
+}

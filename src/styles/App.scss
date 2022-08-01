@@ -1,7 +1,9 @@
 @import "./variables.scss";
 
 @mixin color-settings($color) {
+
   .site-title { color: $color; }
+
     nav .link{
       border-bottom: 2px solid $color;
 
@@ -10,30 +12,44 @@
         pointer-events: none;
         color: $color;
       }
+
       &:hover{ 
         border-bottom: 4px solid $color; 
         color: $white;
       }
     }
+
     .link:hover { color: $color; }
+
     .button { 
       background-color: $color;
+
       &:hover {
         background-color: darken($color,10%);
       }
      }
+
     .icon path { fill: $color; }
+
+    .project .content-heading .year {
+      color: $color;
+    }
+
     .pill {
       background-color: $color;
     }
+
     .info {
       background-color: rgba($color,0.2);
+
       p {
         background-color: $color;
       }
+
       @media screen and (min-width: $desktopWidth){
         background-color: $color;
       }
+
       &.link {
         color: $white;
       }
@@ -44,6 +60,7 @@
   min-height: 100vh;
   font-family: $bodyFont;
   color: white;
+
   &-header {
     display: flex;
     flex-direction: row;
@@ -52,6 +69,8 @@
     padding: $spacingMd;
     z-index: 999;
     user-select: none;
+    margin-top: 0;
+
     @media screen and (min-width: $mobileWidth){
       padding: $spacingMd $spacingLg;
     }
@@ -66,6 +85,7 @@
       padding: 0px $spacingSm;
       z-index:999;
     }
+
     nav {
       z-index: 999;
 
@@ -83,26 +103,33 @@
       }
     }
   }
+
   &.blue-green {
     @include color-settings($blueGreen);
     .pill, .info.link, .button {
       color: $darkGray;
     }
   }
+
   &.red {
     @include color-settings($red);
   }
+
   &.orange{
     @include color-settings($orange);
   }
+
   &.blue {
     @include color-settings($blue);
   }
+
   &.purple{
     @include color-settings($purple);
   }
+
   &.yellow {
     @include color-settings($yellow);
+
     .pill, .info.link, .button {
       color: $darkGray;
     }

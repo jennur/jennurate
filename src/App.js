@@ -23,7 +23,7 @@ class App extends React.Component {
     return (
       <Router>
         <div className={`app ${this.state.titleColorClass}`} onClick={this.changeColor}>
-          <header className="app-header">
+          <header className="app-header main-content">
             <Link to="/" className="site-title">jennurate</Link>
             <nav>
               <NavLink to="/about" activeClassName="link-active" className="link">About</NavLink>
