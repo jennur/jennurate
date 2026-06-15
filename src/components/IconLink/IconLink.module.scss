@@ -1,0 +1,63 @@
+@use '../../styles/settings/variables.scss' as *;
+@use '../../styles/settings/mixins.scss' as *;
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: $spacingSm;
+  text-decoration: none;
+  color: inherit;
+
+  &.blue-green {
+    @include text-color($blueGreen);
+  }
+
+  &.red {
+    @include text-color($red);
+  }
+
+  &.orange {
+    @include text-color($orange);
+  }
+
+  &.blue {
+    @include text-color($blue);
+  }
+
+  &.purple {
+    @include text-color($purple);
+  }
+
+  &.yellow {
+    @include text-color($yellow);
+  }
+
+  .icon {
+    width: 1.5em;
+    height: 1.5em;
+
+    &.blue-green {
+      @include fill-color($blueGreen);
+    }
+
+    &.red {
+      @include fill-color($red);
+    }
+
+    &.orange {
+      @include fill-color($orange);
+    }
+
+    &.blue {
+      @include fill-color($blue);
+    }
+
+    &.purple {
+      @include fill-color($purple);
+    }
+
+    &.yellow {
+      @include fill-color($yellow);
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "coding": [
+    "HTML",
+    "CSS",
+    "SCSS",
+    "Less",
+    "JavaScript",
+    "Nodejs",
+    "Vue",
+    "Nuxt",
+    "React",
+    "Nextjs",
+    "TypeScript"
+  ],
+  "design/UX": [
+    "Adobe Illustrator",
+    "Adobe Photoshop",
+    "Figma",
+    "Responsive web design",
+    "Accessibility"
+  ],
+  "CMS": ["Sanity"]
+}

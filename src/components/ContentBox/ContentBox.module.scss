@@ -1,0 +1,32 @@
+@use '../../styles/settings/variables.scss' as *;
+@use '../../styles/settings/mixins.scss' as *;
+
+.contentBox {
+  width: 100%;
+  border-top: 1px solid $white;
+  border-bottom: 1px solid $white;
+  padding: $spacing2XL $spacingMd;
+  position: relative;
+  max-width: 40rem;
+  margin: $spacingXL auto;
+  user-select: none;
+  font-size: $fontSizeMd;
+  line-height: 1.5;
+  animation: slideIn 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+  @media screen and (min-width: $mobileWidth) {
+    border: 1px solid $white;
+    padding: $spacing2XL;
+  }
+
+  h2 {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: $darkGray;
+    padding: 0px $spacingSm;
+    font-size: $fontSizeLg;
+    min-width: max-content;
+  }
+}

@@ -1,0 +1,122 @@
+@use '../../styles/settings/variables.scss' as *;
+@use '../../styles/settings/mixins.scss' as *;
+
+.about {
+  max-width: $wideScreenWidth;
+  margin: $spacingMd auto;
+  padding: $spacingMd;
+
+  @media screen and (min-width: $mobileWidth) {
+    padding: 0 $spacingLg;
+  }
+
+  @media screen and (min-width: $tabletWidth) {
+    margin: $spacingXL auto;
+  }
+
+  .contentBox {
+    animation: slideIn 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .subHeading {
+    margin: $spacing2XL 0 $spacingMd 0;
+  }
+
+  .catGif,
+  .pinkyGif {
+    display: block;
+    max-width: 100%;
+    margin: $spacingXL auto 0 auto;
+  }
+
+  .catGif {
+    display: none;
+    @media screen and (min-width: $tabletWidth) {
+      display: block;
+    }
+  }
+  .pinkyGif {
+    display: block;
+    @media screen and (min-width: $tabletWidth) {
+      display: none;
+    }
+  }
+
+  .picture {
+    display: none;
+    width: 300px;
+    position: fixed;
+    z-index: 999;
+
+    &.top {
+      top: -50px;
+      right: -50px;
+      animation: slideDown 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+      @media screen and (min-width: $desktopWidth) {
+        right: 50px;
+      }
+    }
+
+    &.bottom {
+      bottom: -50px;
+      left: -80px;
+      animation: slideUp 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+      @media screen and (min-width: $desktopWidth) {
+        left: -50px;
+      }
+    }
+    @media screen and (min-width: $tabletWidth) {
+      display: block;
+    }
+  }
+
+  .contactList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: $spacingLg;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: $spacingSm;
+    }
+  }
+}
+
+// ANIMATIONS
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    top: -500px;
+    opacity: 0;
+  }
+  to {
+    top: -50px;
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    bottom: -500px;
+    opacity: 0;
+  }
+  to {
+    bottom: -50px;
+    opacity: 1;
+  }
+}

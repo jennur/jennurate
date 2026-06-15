@@ -1,0 +1,48 @@
+@use '../../styles/settings/variables.scss' as *;
+@use '../../styles/settings/mixins.scss' as *;
+
+.container {
+  .title {
+    text-transform: capitalize;
+    margin: $spacingLg 0 $spacingMd 0;
+  }
+
+  .pillsWrap {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacingMd;
+
+    .pill {
+      padding: 0.1rem;
+      user-select: none;
+
+      &.blue-green {
+        @include background-color($blueGreen);
+        @include text-color($darkGray);
+      }
+
+      &.red {
+        @include background-color($red);
+      }
+
+      &.orange {
+        @include background-color($orange);
+      }
+
+      &.blue {
+        @include background-color($blue);
+      }
+
+      &.purple {
+        @include background-color($purple);
+      }
+
+      &.yellow {
+        @include background-color($yellow);
+        @include text-color($darkGray);
+      }
+    }
+  }
+}

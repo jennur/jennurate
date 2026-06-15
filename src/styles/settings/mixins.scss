@@ -1,0 +1,86 @@
+@use 'sass:color';
+@use './variables.scss' as *;
+
+@mixin text-color($color) {
+  color: $color;
+}
+
+@mixin background-color($color) {
+  background-color: $color;
+}
+
+@mixin background-color-hover($color) {
+  background-color: color.adjust($color, $lightness: -10%);
+}
+
+@mixin border-color($color) {
+  border-color: $color;
+}
+@mixin border-bottom-color($color) {
+  border-bottom-color: $color;
+}
+
+@mixin fill-color($color) {
+  fill: $color;
+}
+
+@mixin color-settings($color) {
+  .site-title {
+    color: $color;
+  }
+
+  nav .link {
+    border-bottom: 2px solid $color;
+
+    &-active {
+      border-bottom: 0px;
+      pointer-events: none;
+      color: $color;
+    }
+
+    &:hover {
+      border-bottom: 4px solid $color;
+      color: $white;
+    }
+  }
+
+  .link:hover {
+    color: $color;
+  }
+
+  .button {
+    background-color: $color;
+
+    &:hover {
+      background-color: color.adjust($color, $lightness: -10%);
+    }
+  }
+
+  .icon path {
+    fill: $color;
+  }
+
+  .project .content-heading .year {
+    color: $color;
+  }
+
+  .pill {
+    background-color: $color;
+  }
+
+  .info {
+    background-color: rgba($color, 0.2);
+
+    p {
+      background-color: $color;
+    }
+
+    @media screen and (min-width: $desktopWidth) {
+      background-color: $color;
+    }
+
+    &.link {
+      color: $white;
+    }
+  }
+}

@@ -1,0 +1,95 @@
+@use '../../styles/settings/variables.scss' as *;
+@use '../../styles/settings/mixins.scss' as *;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: $spacingLg;
+  padding: $spacingXL;
+  user-select: none;
+  margin-top: 0;
+
+  @media screen and (min-width: $mobileWidth) {
+    padding: $spacingMd $spacingLg;
+  }
+
+  .title {
+    display: inline-block;
+    font-size: $fontSizeLg;
+    font-family: $headingFont;
+    text-decoration: none;
+    background-color: $darkGray;
+    padding: $spacingMd;
+    user-select: none;
+    z-index: 9999;
+
+    &.blue-green {
+      @include text-color($blueGreen);
+    }
+
+    &.red {
+      @include text-color($red);
+    }
+
+    &.orange {
+      @include text-color($orange);
+    }
+
+    &.blue {
+      @include text-color($blue);
+    }
+
+    &.purple {
+      @include text-color($purple);
+    }
+
+    &.yellow {
+      @include text-color($yellow);
+    }
+  }
+
+  nav {
+    z-index: 9999;
+
+    .link {
+      display: inline-block;
+      color: $white;
+      background-color: $darkGray;
+      padding: $spacingMd;
+      text-decoration: none;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      cursor: pointer;
+
+      &.blue-green {
+        @include border-bottom-color($blueGreen);
+      }
+
+      &.red {
+        @include border-bottom-color($red);
+      }
+
+      &.orange {
+        @include border-bottom-color($orange);
+      }
+
+      &.blue {
+        @include border-bottom-color($blue);
+      }
+
+      &.purple {
+        @include border-bottom-color($purple);
+      }
+
+      &.yellow {
+        @include border-bottom-color($yellow);
+      }
+
+      &:hover {
+        border-bottom-color: transparent;
+      }
+    }
+  }
+}

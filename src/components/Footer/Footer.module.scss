@@ -1,0 +1,18 @@
+@use '../../styles/settings/mixins.scss' as *;
+@use '../../styles/settings/variables.scss' as *;
+
+.footer {
+  margin: 0 auto;
+  .badgeList {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: $spacingMd;
+    padding: $spacingLg $spacingMd;
+
+    img {
+      max-height: 31px;
+    }
+  }
+}
