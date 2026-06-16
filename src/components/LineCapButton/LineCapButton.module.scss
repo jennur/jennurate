@@ -2,24 +2,26 @@
 
 .lineCap {
   display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   flex-shrink: 0;
   flex-grow: 0;
   cursor: pointer;
-  width: max-content;
-  height: max-content;
+  width: 1.8rem;
+  height: 1.8rem;
   background-color: transparent;
-  padding: $spacingMd;
   transition: 0.3s;
+  padding: 0;
 
   &:hover {
     transform: scale(1.2);
   }
 
   .lineCapIndicator {
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 3px solid $darkGray;
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 0.2rem solid $darkGray;
     box-sizing: content-box;
 
     &.round {

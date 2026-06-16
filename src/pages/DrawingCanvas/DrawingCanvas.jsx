@@ -1,21 +1,14 @@
 import styles from './DrawingCanvas.module.scss';
-import { DownloadIcon, MinusIcon, PlusIcon } from '../../assets/icons';
-import { useDrawing, useThemeColor } from '../../context';
-import LineCapButton from '../../components/LineCapButton/LineCapButton';
+import { DownloadIcon } from '../../assets/icons';
+import { useDrawing } from '../../context';
+import BrushControls from '../../components/BrushControls/BrushControls';
+import ColorButton from '../../components/ColorButton/ColorButton';
+import ColorSwatches from '../../components/ColorSwatches/ColorSwatches';
 
 export function DrawingCanvas() {
-  const {
-    colors,
-    setColor,
-    downloadCanvas,
-    increaseBrushSize,
-    descreaseBrushSize,
-    strokeColor,
-    strokeWidth,
-    activeShape,
-  } = useDrawing();
+  const { downloadCanvas, strokeColor, strokeWidth, activeShape } =
+    useDrawing();
 
-  const { color: themeColor } = useThemeColor();
   return (
     <section className={styles.drawingCanvas}>
       <div
@@ -27,6 +20,14 @@ export function DrawingCanvas() {
           backgroundColor: strokeColor,
         }}
       ></div>
+
+      <div className={styles.topBar}>
+        <ColorButton
+          text={window.innerWidth > 900 ? 'Download my masterpiece!' : ''}
+          icon={<DownloadIcon />}
+          onClick={downloadCanvas}
+        />
+      </div>
 
       <canvas
         id='my-jennur-art'
@@ -43,53 +44,11 @@ export function DrawingCanvas() {
       </canvas>
 
       <div className={styles.sideBar}>
-        <div className={styles.lineCapControls}>
-          <LineCapButton capType='round' />
-          <LineCapButton capType='square' />
-          <LineCapButton capType='butt' />
-        </div>
-
-        <div className={styles.brushSizeDisplay}>
-          <div className={styles.brushSizeControls}>
-            <button
-              className={styles.resizeButton}
-              onClick={(event) => increaseBrushSize(event)}
-            >
-              <PlusIcon className={styles.buttonIcon} />
-            </button>
-            <button
-              className={styles.resizeButton}
-              onClick={(event) => descreaseBrushSize(event)}
-            >
-              <MinusIcon className={styles.buttonIcon} />
-            </button>
-          </div>
-        </div>
+        <BrushControls />
       </div>
 
       <div className={styles.bottomBar}>
-        <button
-          className={[styles.downloadButton, styles[themeColor]].join(' ')}
-          onClick={downloadCanvas}
-        >
-          <DownloadIcon
-            className={[styles.buttonIcon, styles[themeColor]].join(' ')}
-          />
-          {window.innerWidth > 900 ? 'Download my masterpiece!' : ''}
-        </button>
-
-        <div className={styles.colorPicker}>
-          {colors.map((color) => {
-            return (
-              <button
-                className={styles.colorSwatch}
-                style={{ backgroundColor: color }}
-                onClick={(event) => setColor(event, color)}
-                key={color}
-              ></button>
-            );
-          })}
-        </div>
+        <ColorSwatches className={styles.colorSwatches} />
       </div>
     </section>
   );

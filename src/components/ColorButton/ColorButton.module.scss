@@ -1,0 +1,80 @@
+@use '../../styles/settings/variables.scss' as *;
+@use '../../styles/settings/mixins.scss' as *;
+
+.colorButton {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: $spacingSm;
+  width: max-content;
+  padding: $spacingSm $spacingMd;
+  border: 0.2rem solid $darkGray;
+  font-size: $fontSizeSm;
+  color: $white;
+  font-family: $headingFont;
+  user-select: none;
+  cursor: pointer;
+  pointer-events: all;
+
+  @media screen and (min-width: $mobileWidth) {
+    left: $spacingLg;
+  }
+
+  &.blue-green {
+    @include background-color($blueGreen);
+    @include text-color($darkGray);
+  }
+
+  &.red {
+    @include background-color($red);
+  }
+
+  &.orange {
+    @include background-color($orange);
+    @include text-color($darkGray);
+  }
+
+  &.blue {
+    @include background-color($blue);
+  }
+
+  &.purple {
+    @include background-color($purple);
+  }
+
+  &.yellow {
+    @include background-color($yellow);
+    @include text-color($darkGray);
+  }
+
+  .icon {
+    width: 1em;
+    height: 1em;
+
+    &.blue-green {
+      @include fill-color($darkGray);
+    }
+
+    &.red {
+      @include fill-color($white);
+    }
+
+    &.orange {
+      @include fill-color($darkGray);
+    }
+
+    &.blue {
+      @include fill-color($white);
+    }
+
+    &.purple {
+      @include fill-color($white);
+    }
+
+    &.yellow {
+      @include fill-color($darkGray);
+    }
+  }
+}

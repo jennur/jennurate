@@ -1,0 +1,76 @@
+@use '../../styles/settings/variables.scss' as *;
+
+.brushControls {
+  display: flex;
+  flex-direction: column;
+  gap: $spacingLg;
+  align-items: flex-start;
+
+  .lineCapControls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacingMd;
+    background-color: rgba($lightGray, 0.3);
+    padding: $spacingSm;
+  }
+
+  .brushSizeControls {
+    display: flex;
+    flex-direction: column;
+    gap: $spacingSm;
+    padding: $spacingSm;
+    background-color: rgba($lightGray, 0.3);
+
+    .buttonWrapper {
+      position: relative;
+
+      .hoverText {
+        position: absolute;
+        top: 50%;
+        left: -1000%;
+        transform: translateY(-50%) translateX(-1rem);
+        white-space: nowrap;
+        font-size: $fontSizeSm;
+        transition: transform 0.3s;
+        padding: $spacingSm;
+        margin-left: $spacingMd;
+        background-color: rgba($lightGray, 0.3);
+      }
+
+      &.increase:hover .hoverText.increase,
+      &.decrease:hover .hoverText.decrease {
+        opacity: 1;
+        left: 100%;
+        width: auto;
+        height: auto;
+        transform: translateY(-50%) translateX(0);
+      }
+
+      .resizeButton {
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        width: 1.8rem;
+        height: 1.8rem;
+        transition: 0.3s;
+        background-color: $lightGray;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 2;
+
+        &:hover {
+          transform: scale(1.2);
+        }
+
+        .buttonIcon {
+          width: 1.1rem;
+          height: 1.1rem;
+          fill: $white;
+        }
+      }
+    }
+  }
+}

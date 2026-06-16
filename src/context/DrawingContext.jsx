@@ -36,7 +36,6 @@ export const DrawingProvider = ({ children }) => {
   const [strokeColor, setStrokeColor] = useState(DEFAULT_STROKE_COLOR);
   const [strokeWidth, setStrokeWidth] = useState(DEFAULT_STROKE_WIDTH);
   const [activeShape, setActiveShape] = useState(DEFAULT_SHAPE);
-
   const activeShapeRef = useRef(activeShape);
 
   const canvasCtxRef = useRef(null);
@@ -123,31 +122,31 @@ export const DrawingProvider = ({ children }) => {
     setStrokeWidth(ctx.lineWidth);
   };
 
-  const resizeCanvas = () => {
-    const prevCtx = canvasCtxRef.current;
+  // const resizeCanvas = () => {
+  //   const prevCtx = canvasCtxRef.current;
 
-    const canvas = document.getElementById('my-jennur-art');
-    const tempCanvas = document.createElement('canvas');
-    const tempCtx = tempCanvas.getContext('2d');
-    tempCanvas.width = canvas.width;
-    tempCanvas.height = canvas.height;
-    tempCtx.drawImage(canvas, 0, 0);
+  //   const canvas = document.getElementById('my-jennur-art');
+  //   const tempCanvas = document.createElement('canvas');
+  //   const tempCtx = tempCanvas.getContext('2d');
+  //   tempCanvas.width = canvas.width;
+  //   tempCanvas.height = canvas.height;
+  //   tempCtx.drawImage(canvas, 0, 0);
 
-    const newCtx = canvas.getContext('2d');
-    canvas.width = 4 * window.innerWidth;
-    canvas.height = 4 * window.innerHeight;
+  //   const newCtx = canvas.getContext('2d');
+  //   canvas.width = 4 * window.innerWidth;
+  //   canvas.height = 4 * window.innerHeight;
 
-    newCtx.lineJoin = prevCtx.lineJoin;
-    newCtx.lineCap = prevCtx.lineCap;
-    newCtx.lineWidth = prevCtx.lineWidth;
-    newCtx.strokeStyle = prevCtx.strokeStyle;
-    newCtx.fillStyle = prevCtx.fillStyle;
-    newCtx.fillRect(0, 0, canvas.width, canvas.height);
-    newCtx.drawImage(tempCanvas, 0, 0);
-    newCtx.scale(4, 4);
+  //   newCtx.lineJoin = prevCtx.lineJoin;
+  //   newCtx.lineCap = prevCtx.lineCap;
+  //   newCtx.lineWidth = prevCtx.lineWidth;
+  //   newCtx.strokeStyle = prevCtx.strokeStyle;
+  //   newCtx.fillStyle = prevCtx.fillStyle;
+  //   newCtx.fillRect(0, 0, canvas.width, canvas.height);
+  //   newCtx.drawImage(tempCanvas, 0, 0);
+  //   newCtx.scale(4, 4);
 
-    canvasCtxRef.current = newCtx;
-  };
+  //   canvasCtxRef.current = newCtx;
+  // };
 
   const downloadCanvas = () => {
     const canvas = document.getElementById('my-jennur-art');
@@ -206,7 +205,7 @@ export const DrawingProvider = ({ children }) => {
       passive: false,
     });
 
-    window.addEventListener('resize', resizeCanvas);
+    // window.addEventListener('resize', resizeCanvas);
 
     return () => {
       canvas.removeEventListener('touchstart', startDrawing);
@@ -217,14 +216,14 @@ export const DrawingProvider = ({ children }) => {
       canvas.removeEventListener('mousedown', startDrawing);
       canvas.removeEventListener('mouseup', stopDrawing);
 
-      window.removeEventListener('resize', resizeCanvas);
+      // window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
 
   return (
     <DrawingContext.Provider
       value={{
-        resizeCanvas,
+        // resizeCanvas,
         downloadCanvas,
         drawLine,
         drawPoint,

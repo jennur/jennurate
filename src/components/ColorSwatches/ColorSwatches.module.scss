@@ -1,0 +1,25 @@
+@use '../../styles/settings/variables.scss' as *;
+
+.colorSwatches {
+  display: flex;
+  gap: $spacingSm;
+  justify-content: center;
+  background-color: rgba($lightGray, 0.3);
+  padding: $spacingSm;
+  width: max-content;
+
+  .swatch {
+    border: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: all;
+    transition: 0.3s;
+    border: 0.2rem solid $darkGray;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
