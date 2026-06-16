@@ -8,6 +8,7 @@ import LinkedInIcon from './linkedin-icon';
 import LinkIcon from './link-icon';
 import MinusIcon from './minus-icon';
 import PlusIcon from './plus-icon';
+import RotateIcon from './rotate-icon';
 
 export {
   BitbucketIcon,
@@ -20,4 +21,5 @@ export {
   LinkIcon,
   MinusIcon,
   PlusIcon,
+  RotateIcon,
 };

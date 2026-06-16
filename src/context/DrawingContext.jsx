@@ -2,17 +2,20 @@ import { createContext, useState, useRef, useEffect, useContext } from 'react';
 
 const DEFAULT_STROKE_WIDTH = 40;
 const DEFAULT_COLORS = [
+  '#0c0c0e',
   '#1e1e1e',
   '#d13333',
   '#db5d23',
   '#e9d735',
-  '#1e7c3b',
-  '#2eb1bd',
+  '#2f6a49',
+  '#15a2ae',
   '#a1258b',
   '#f2f2f2',
 ];
 const DEFAULT_STROKE_COLOR = DEFAULT_COLORS[6];
 const DEFAULT_SHAPE = 'round';
+const DEFAULT_ROTATION = 0;
+const DEFAULT_OFFSETS = { offsetX: 0, offsetY: 0 };
 const MIN_STROKE_WIDTH = 5;
 
 const DrawingContext = createContext({
@@ -29,6 +32,9 @@ const DrawingContext = createContext({
   strokeColor: DEFAULT_STROKE_COLOR,
   strokeWidth: DEFAULT_STROKE_WIDTH,
   activeShape: DEFAULT_SHAPE,
+  rotation: DEFAULT_ROTATION,
+  offsets: DEFAULT_OFFSETS,
+  updateRotation: () => {},
 });
 
 export const DrawingProvider = ({ children }) => {
@@ -36,22 +42,38 @@ export const DrawingProvider = ({ children }) => {
   const [strokeColor, setStrokeColor] = useState(DEFAULT_STROKE_COLOR);
   const [strokeWidth, setStrokeWidth] = useState(DEFAULT_STROKE_WIDTH);
   const [activeShape, setActiveShape] = useState(DEFAULT_SHAPE);
-  const activeShapeRef = useRef(activeShape);
+  const [rotation, setRotation] = useState(DEFAULT_ROTATION);
+  const [offsets, setOffsets] = useState(DEFAULT_OFFSETS);
 
+  const strokeWidthRef = useRef(strokeWidth);
+  const rotationRef = useRef(rotation);
+  const rotationOffsets = useRef(offsets);
+  const activeShapeRef = useRef(activeShape);
   const canvasCtxRef = useRef(null);
   const isDrawingRef = useRef(false);
 
-  useEffect(() => {
-    console.log('CANVAS CONTEXT', canvasCtxRef.current);
-  }, [canvasCtxRef]);
+  const updateRotation = () => {
+    const newRotation = rotation + 45;
+    setRotation(newRotation);
+    rotationRef.current = newRotation;
 
-  useEffect(() => {
-    console.log('STROKE WIDTH', strokeWidth);
-  }, [strokeWidth]);
+    const angleInRadians = (newRotation * Math.PI) / 180;
+    const offsetX = Math.cos(angleInRadians);
+    const offsetY = Math.sin(angleInRadians);
 
-  useEffect(() => {
-    console.log('ACTIVE SHAPE', activeShape);
-  }, [activeShape]);
+    setOffsets({ offsetX, offsetY });
+    rotationOffsets.current = { offsetX, offsetY };
+  };
+
+  const updateStrokeWidth = (newWidth) => {
+    setStrokeWidth(newWidth);
+    strokeWidthRef.current = newWidth;
+  };
+
+  const updateActiveShape = (newShape) => {
+    setActiveShape(newShape);
+    activeShapeRef.current = newShape;
+  };
 
   const drawLine = (e) => {
     console.log('DRAWING', isDrawingRef.current);
@@ -69,24 +91,26 @@ export const DrawingProvider = ({ children }) => {
 
   const drawPoint = (x, y) => {
     const ctx = canvasCtxRef.current;
-    const moveOffsetX = activeShapeRef.current === 'butt' ? 0.05 : 0;
-    const moveOffsetY = activeShapeRef.current === 'butt' ? 0.05 : 0;
+    const { offsetX, offsetY } = rotationOffsets.current;
     console.log('Active shape in drawPoint:', activeShapeRef.current);
-    console.log('DRAWING POINT', { x, y, moveOffsetX, moveOffsetY });
+    console.log('DRAWING POINT', { x, y, offsetX, offsetY });
+
     ctx.beginPath();
-    ctx.moveTo(x + moveOffsetX, y + moveOffsetY);
-    ctx.lineTo(x, y);
+    ctx.moveTo(x, y);
+    if (activeShapeRef.current === 'butt' && offsetX === 0 && offsetY === 0) {
+      ctx.lineTo(x - 1, y);
+    } else {
+      ctx.lineTo(x + offsetX, y + offsetY);
+    }
     ctx.stroke();
   };
 
   const startDrawing = (e) => {
-    console.log('STARTING TO DRAW');
     drawPoint(e.clientX, e.clientY);
     isDrawingRef.current = true;
   };
 
   const stopDrawing = () => {
-    console.log('STOPPING DRAWING');
     isDrawingRef.current = false;
   };
 
@@ -101,16 +125,14 @@ export const DrawingProvider = ({ children }) => {
     event.stopPropagation();
     const ctx = canvasCtxRef.current;
     ctx.lineCap = shape;
-    activeShapeRef.current = shape;
-    setActiveShape(shape);
+    updateActiveShape(shape);
   };
 
   const increaseBrushSize = (event) => {
     event.stopPropagation();
     const ctx = canvasCtxRef.current;
     ctx.lineWidth += 10;
-    console.log('INCREASING BRUSH SIZE', ctx.lineWidth);
-    setStrokeWidth(ctx.lineWidth);
+    updateStrokeWidth(ctx.lineWidth);
   };
 
   const descreaseBrushSize = (event) => {
@@ -118,8 +140,7 @@ export const DrawingProvider = ({ children }) => {
     const ctx = canvasCtxRef.current;
     if (ctx.lineWidth <= MIN_STROKE_WIDTH) return;
     ctx.lineWidth -= 10;
-    console.log('DECREASING BRUSH SIZE', ctx.lineWidth);
-    setStrokeWidth(ctx.lineWidth);
+    updateStrokeWidth(ctx.lineWidth);
   };
 
   // const resizeCanvas = () => {
@@ -160,14 +181,14 @@ export const DrawingProvider = ({ children }) => {
 
   const showShapePreview = (event) => {
     const shapePreview = document.getElementById('shape-preview');
-    const previewRect = shapePreview.getBoundingClientRect();
-    const offsetX =
-      activeShapeRef.current === 'butt' ? 0 : previewRect.width / 2;
-    const offsetY =
-      activeShapeRef.current === 'butt' ? 0 : previewRect.height / 2;
-    shapePreview.style.display = 'block';
-    shapePreview.style.left = `${event.clientX - offsetX}px`;
-    shapePreview.style.top = `${event.clientY - offsetY}px`;
+    const width =
+      activeShapeRef.current === 'butt' ? 1 : strokeWidthRef.current;
+    const height = strokeWidthRef.current;
+    const posOffsetX = width / 2;
+    const posOffsetY = height / 2;
+    shapePreview.style.left = `${event.clientX - posOffsetX}px`;
+    shapePreview.style.top = `${event.clientY - posOffsetY}px`;
+    shapePreview.style.transform = `rotate(${rotationRef.current}deg)`;
   };
 
   useEffect(() => {
@@ -179,7 +200,7 @@ export const DrawingProvider = ({ children }) => {
     ctx.lineJoin = 'round';
     ctx.lineCap = activeShapeRef.current || DEFAULT_SHAPE;
     ctx.lineWidth = strokeWidth || DEFAULT_STROKE_WIDTH;
-    ctx.strokeStyle = DEFAULT_STROKE_COLOR;
+    ctx.strokeStyle = strokeColor || DEFAULT_STROKE_COLOR;
     ctx.fillStyle = '#0c0c0e';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     canvasCtxRef.current = ctx;
@@ -236,6 +257,9 @@ export const DrawingProvider = ({ children }) => {
         strokeColor,
         strokeWidth,
         activeShape,
+        rotation,
+        offsets,
+        updateRotation,
       }}
     >
       {children}

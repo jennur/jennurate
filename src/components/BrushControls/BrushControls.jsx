@@ -1,14 +1,18 @@
 import LineCapButton from '../LineCapButton/LineCapButton';
 import styles from './BrushControls.module.scss';
 import { useDrawing } from '../../context';
-import { PlusIcon, MinusIcon } from '../../assets/icons';
+import { PlusIcon, MinusIcon, RotateIcon } from '../../assets/icons';
 
 export default function BrushControls() {
-  const { increaseBrushSize, descreaseBrushSize } = useDrawing();
+  const { increaseBrushSize, descreaseBrushSize, updateRotation } =
+    useDrawing();
 
   return (
     <div className={styles.brushControls}>
       <div className={styles.lineCapControls}>
+        <button className={styles.rotateButton} onClick={updateRotation}>
+          <RotateIcon className={styles.buttonIcon} />
+        </button>
         <LineCapButton capType='round' />
         <LineCapButton capType='square' />
         <LineCapButton capType='butt' />
