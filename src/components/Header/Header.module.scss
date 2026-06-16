@@ -10,6 +10,7 @@
   padding: $spacingXL;
   user-select: none;
   margin-top: 0;
+  width: max-content;
 
   @media screen and (min-width: $mobileWidth) {
     padding: $spacingMd $spacingLg;

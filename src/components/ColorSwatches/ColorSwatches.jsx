@@ -2,7 +2,7 @@ import styles from './ColorSwatches.module.scss';
 import { useDrawing } from '../../context';
 
 export default function ColorSwatches({ className }) {
-  const { colors, setColor } = useDrawing();
+  const { colors, updateColor } = useDrawing();
 
   return (
     <div className={`${styles.colorSwatches} ${className}`}>
@@ -11,7 +11,7 @@ export default function ColorSwatches({ className }) {
           <button
             className={styles.swatch}
             style={{ backgroundColor: color }}
-            onClick={(event) => setColor(event, color)}
+            onClick={(event) => updateColor(event, color)}
             key={color}
           ></button>
         );

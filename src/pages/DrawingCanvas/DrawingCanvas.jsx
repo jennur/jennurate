@@ -6,7 +6,7 @@ import ColorButton from '../../components/ColorButton/ColorButton';
 import ColorSwatches from '../../components/ColorSwatches/ColorSwatches';
 
 export function DrawingCanvas() {
-  const { downloadCanvas, strokeColor, strokeWidth, activeShape } =
+  const { downloadCanvas, strokeColor, strokeWidth, activeShape, opacity } =
     useDrawing();
 
   return (
@@ -18,6 +18,7 @@ export function DrawingCanvas() {
           width: activeShape === 'butt' ? '1px' : `${strokeWidth}px`,
           height: `${strokeWidth}px`,
           backgroundColor: strokeColor,
+          opacity: opacity,
         }}
       ></div>
 

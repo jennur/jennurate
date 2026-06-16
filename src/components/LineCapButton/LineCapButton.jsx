@@ -2,11 +2,11 @@ import { useDrawing } from '../../context';
 import styles from './LineCapButton.module.scss';
 
 export default function LineCapButton({ capType }) {
-  const { setLineCap, strokeColor, rotation } = useDrawing();
+  const { updateLineCap, strokeColor, rotation } = useDrawing();
   return (
     <button
       className={styles.lineCap}
-      onClick={(event) => setLineCap(event, capType)}
+      onClick={(event) => updateLineCap(event, capType)}
     >
       <span
         className={`${styles.lineCapIndicator} ${styles[capType]}`}

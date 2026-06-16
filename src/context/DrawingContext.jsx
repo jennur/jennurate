@@ -15,6 +15,7 @@ const DEFAULT_COLORS = [
 const DEFAULT_STROKE_COLOR = DEFAULT_COLORS[6];
 const DEFAULT_SHAPE = 'round';
 const DEFAULT_ROTATION = 0;
+const DEFAULT_OPACITY = 1;
 const DEFAULT_OFFSETS = { offsetX: 0, offsetY: 0 };
 const MIN_STROKE_WIDTH = 5;
 
@@ -25,16 +26,18 @@ const DrawingContext = createContext({
   drawPoint: () => {},
   canvasCtxRef: null,
   colors: [],
-  setColor: () => {},
-  setLineCap: () => {},
+  updateColor: () => {},
+  updateLineCap: () => {},
+  updateRotation: () => {},
+  updateOpacity: () => {},
   increaseBrushSize: () => {},
   descreaseBrushSize: () => {},
   strokeColor: DEFAULT_STROKE_COLOR,
   strokeWidth: DEFAULT_STROKE_WIDTH,
   activeShape: DEFAULT_SHAPE,
   rotation: DEFAULT_ROTATION,
+  opacity: DEFAULT_OPACITY,
   offsets: DEFAULT_OFFSETS,
-  updateRotation: () => {},
 });
 
 export const DrawingProvider = ({ children }) => {
@@ -43,6 +46,7 @@ export const DrawingProvider = ({ children }) => {
   const [strokeWidth, setStrokeWidth] = useState(DEFAULT_STROKE_WIDTH);
   const [activeShape, setActiveShape] = useState(DEFAULT_SHAPE);
   const [rotation, setRotation] = useState(DEFAULT_ROTATION);
+  const [opacity, setOpacity] = useState(DEFAULT_OPACITY);
   const [offsets, setOffsets] = useState(DEFAULT_OFFSETS);
 
   const strokeWidthRef = useRef(strokeWidth);
@@ -114,14 +118,21 @@ export const DrawingProvider = ({ children }) => {
     isDrawingRef.current = false;
   };
 
-  const setColor = (event, color) => {
+  const updateOpacity = (event, opacity) => {
+    event.stopPropagation();
+    const ctx = canvasCtxRef.current;
+    ctx.globalAlpha = opacity;
+    setOpacity(opacity);
+  };
+
+  const updateColor = (event, color) => {
     event.stopPropagation();
     const ctx = canvasCtxRef.current;
     ctx.strokeStyle = color;
     setStrokeColor(color);
   };
 
-  const setLineCap = (event, shape) => {
+  const updateLineCap = (event, shape) => {
     event.stopPropagation();
     const ctx = canvasCtxRef.current;
     ctx.lineCap = shape;
@@ -250,16 +261,18 @@ export const DrawingProvider = ({ children }) => {
         drawPoint,
         canvasCtxRef,
         colors,
-        setColor,
-        setLineCap,
+        updateColor,
+        updateLineCap,
+        updateRotation,
+        updateOpacity,
         increaseBrushSize,
         descreaseBrushSize,
         strokeColor,
         strokeWidth,
         activeShape,
         rotation,
+        opacity,
         offsets,
-        updateRotation,
       }}
     >
       {children}

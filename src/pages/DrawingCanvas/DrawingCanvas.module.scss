@@ -11,7 +11,7 @@
     top: 0;
     pointer-events: none;
     z-index: 1;
-    opacity: 0.3;
+    // opacity: 0.3;
 
     &.round {
       border-radius: 100%;
@@ -37,13 +37,11 @@
   }
 
   .topBar {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
+    display: block;
     position: absolute;
     top: $spacing2XL;
     right: $spacingLg;
-    width: 100%;
+    width: max-content;
     z-index: 2;
 
     @media screen and (min-width: $mobileWidth) {
