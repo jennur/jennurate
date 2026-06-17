@@ -1,5 +1,9 @@
 import { createContext, useState, useRef, useEffect, useContext } from 'react';
 
+const CANVAS_LS_KEY = 'exit-canvas';
+const CANVAS_SCALE = 4;
+const CANVAS_BG_COLOR = '#0c0c0e';
+
 const DEFAULT_STROKE_WIDTH = 40;
 const DEFAULT_COLORS = [
   '#0c0c0e',
@@ -49,11 +53,12 @@ export const DrawingProvider = ({ children }) => {
   const [opacity, setOpacity] = useState(DEFAULT_OPACITY);
   const [offsets, setOffsets] = useState(DEFAULT_OFFSETS);
 
+  const canvasRef = useRef(null);
+  const canvasCtxRef = useRef(null);
   const strokeWidthRef = useRef(strokeWidth);
   const rotationRef = useRef(rotation);
   const rotationOffsets = useRef(offsets);
   const activeShapeRef = useRef(activeShape);
-  const canvasCtxRef = useRef(null);
   const isDrawingRef = useRef(false);
 
   const updateRotation = () => {
@@ -80,7 +85,6 @@ export const DrawingProvider = ({ children }) => {
   };
 
   const drawLine = (e) => {
-    console.log('DRAWING', isDrawingRef.current);
     e.preventDefault();
     e.stopPropagation();
 
@@ -96,13 +100,12 @@ export const DrawingProvider = ({ children }) => {
   const drawPoint = (x, y) => {
     const ctx = canvasCtxRef.current;
     const { offsetX, offsetY } = rotationOffsets.current;
-    console.log('Active shape in drawPoint:', activeShapeRef.current);
-    console.log('DRAWING POINT', { x, y, offsetX, offsetY });
 
     ctx.beginPath();
     ctx.moveTo(x, y);
+
     if (activeShapeRef.current === 'butt' && offsetX === 0 && offsetY === 0) {
-      ctx.lineTo(x - 1, y);
+      ctx.lineTo(x - 1, y); // Add offset for 'butt' shape to make it visible
     } else {
       ctx.lineTo(x + offsetX, y + offsetY);
     }
@@ -116,6 +119,11 @@ export const DrawingProvider = ({ children }) => {
 
   const stopDrawing = () => {
     isDrawingRef.current = false;
+    try {
+      saveCanvasToLS();
+    } catch (error) {
+      console.error('Error saving canvas:', error);
+    }
   };
 
   const updateOpacity = (event, opacity) => {
@@ -154,40 +162,26 @@ export const DrawingProvider = ({ children }) => {
     updateStrokeWidth(ctx.lineWidth);
   };
 
-  // const resizeCanvas = () => {
-  //   const prevCtx = canvasCtxRef.current;
-
-  //   const canvas = document.getElementById('my-jennur-art');
-  //   const tempCanvas = document.createElement('canvas');
-  //   const tempCtx = tempCanvas.getContext('2d');
-  //   tempCanvas.width = canvas.width;
-  //   tempCanvas.height = canvas.height;
-  //   tempCtx.drawImage(canvas, 0, 0);
-
-  //   const newCtx = canvas.getContext('2d');
-  //   canvas.width = 4 * window.innerWidth;
-  //   canvas.height = 4 * window.innerHeight;
-
-  //   newCtx.lineJoin = prevCtx.lineJoin;
-  //   newCtx.lineCap = prevCtx.lineCap;
-  //   newCtx.lineWidth = prevCtx.lineWidth;
-  //   newCtx.strokeStyle = prevCtx.strokeStyle;
-  //   newCtx.fillStyle = prevCtx.fillStyle;
-  //   newCtx.fillRect(0, 0, canvas.width, canvas.height);
-  //   newCtx.drawImage(tempCanvas, 0, 0);
-  //   newCtx.scale(4, 4);
-
-  //   canvasCtxRef.current = newCtx;
-  // };
+  const getCanvasImageURL = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      console.error('Canvas ref element not found');
+      return null;
+    }
+    return canvas.toDataURL('image/png');
+  };
 
   const downloadCanvas = () => {
-    const canvas = document.getElementById('my-jennur-art');
-    const img = canvas.toDataURL('image/png');
-    const url = img;
+    const canvasURL = getCanvasImageURL();
     const link = document.createElement('a');
-    link.href = url;
+    link.href = canvasURL;
     link.setAttribute('download', 'my_jennur_art.png');
     link.click();
+  };
+
+  const saveCanvasToLS = () => {
+    const canvasURL = getCanvasImageURL();
+    localStorage.setItem(CANVAS_LS_KEY, canvasURL);
   };
 
   const showShapePreview = (event) => {
@@ -202,23 +196,69 @@ export const DrawingProvider = ({ children }) => {
     shapePreview.style.transform = `rotate(${rotationRef.current}deg)`;
   };
 
-  useEffect(() => {
+  const initializeCanvas = () => {
     const canvas = document.getElementById('my-jennur-art');
+
+    if (!canvas) {
+      console.error('Canvas element not found');
+      return;
+    }
+
+    canvasRef.current = canvas;
+    canvas.width = CANVAS_SCALE * window.innerWidth;
+    canvas.height = CANVAS_SCALE * window.innerHeight;
+
     const ctx = canvas.getContext('2d');
-    canvas.width = 4 * window.innerWidth;
-    canvas.height = 4 * window.innerHeight;
-    ctx.scale(4, 4);
+    ctx.scale(CANVAS_SCALE, CANVAS_SCALE);
     ctx.lineJoin = 'round';
-    ctx.lineCap = activeShapeRef.current || DEFAULT_SHAPE;
-    ctx.lineWidth = strokeWidth || DEFAULT_STROKE_WIDTH;
-    ctx.strokeStyle = strokeColor || DEFAULT_STROKE_COLOR;
-    ctx.fillStyle = '#0c0c0e';
+    ctx.lineCap = DEFAULT_SHAPE;
+    ctx.lineWidth = DEFAULT_STROKE_WIDTH;
+    ctx.strokeStyle = DEFAULT_STROKE_COLOR;
+    ctx.fillStyle = CANVAS_BG_COLOR;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     canvasCtxRef.current = ctx;
+  };
 
-    document.body.addEventListener('pointermove', (event) =>
-      showShapePreview(event)
-    );
+  const restoreContextState = () => {
+    const canvas = canvasRef.current;
+    const savedURL = localStorage.getItem(CANVAS_LS_KEY);
+    const ctx = canvasCtxRef.current;
+
+    if (savedURL) {
+      try {
+        const storedCanvasImg = new Image();
+        storedCanvasImg.src = savedURL;
+        storedCanvasImg.onload = () => {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(
+            storedCanvasImg,
+            0,
+            0,
+            canvas.width,
+            canvas.height,
+            0,
+            0,
+            canvas.width / CANVAS_SCALE,
+            canvas.height / CANVAS_SCALE
+          );
+        };
+      } catch (error) {
+        console.error('Error restoring canvas:', error);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const canvas = document.getElementById('my-jennur-art');
+    if (!canvas) {
+      console.error('Canvas element not found');
+      return;
+    }
+
+    initializeCanvas();
+    restoreContextState();
+
+    canvas.addEventListener('pointermove', (event) => showShapePreview(event));
 
     canvas.addEventListener('touchstart', startDrawing, {
       passive: false,
@@ -226,7 +266,6 @@ export const DrawingProvider = ({ children }) => {
     canvas.addEventListener('touchmove', (e) => drawLine(e), {
       passive: false,
     });
-
     canvas.addEventListener('mousemove', (e) => drawLine(e), {
       passive: false,
     });
@@ -237,9 +276,8 @@ export const DrawingProvider = ({ children }) => {
       passive: false,
     });
 
-    // window.addEventListener('resize', resizeCanvas);
-
     return () => {
+      canvas.removeEventListener('pointermove', showShapePreview);
       canvas.removeEventListener('touchstart', startDrawing);
       canvas.removeEventListener('touchend', stopDrawing);
       canvas.removeEventListener('touchmove', drawLine);
@@ -247,15 +285,12 @@ export const DrawingProvider = ({ children }) => {
       canvas.removeEventListener('mousemove', drawLine);
       canvas.removeEventListener('mousedown', startDrawing);
       canvas.removeEventListener('mouseup', stopDrawing);
-
-      // window.removeEventListener('resize', resizeCanvas);
     };
   }, []);
 
   return (
     <DrawingContext.Provider
       value={{
-        // resizeCanvas,
         downloadCanvas,
         drawLine,
         drawPoint,

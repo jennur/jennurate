@@ -11,9 +11,9 @@ export default function App() {
     <div className='app' onClick={setRandomColor}>
       <Header />
       <Routes>
-        <Route path='/about' element={<About />} />
+        <Route path='about' element={<About />} />
         <Route
-          path='/'
+          path=''
           element={
             <DrawingProvider>
               <DrawingCanvas />
