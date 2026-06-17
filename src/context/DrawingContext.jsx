@@ -1,6 +1,13 @@
 import { createContext, useState, useRef, useEffect, useContext } from 'react';
+import {
+  deleteFromIndexedDB,
+  getFromIndexedDB,
+  saveToIndexedDB,
+} from '../helpers/indexedDBStorage';
 
-const CANVAS_LS_KEY = 'exit-canvas';
+const INDEX_DB = 'jennur_db';
+const INDEX_DB_STORE = 'canvas_store';
+const INDEX_DB_KEY = 'canvas';
 const CANVAS_SCALE = 4;
 const CANVAS_BG_COLOR = '#0c0c0e';
 
@@ -24,7 +31,7 @@ const DEFAULT_OFFSETS = { offsetX: 0, offsetY: 0 };
 const MIN_STROKE_WIDTH = 5;
 
 const DrawingContext = createContext({
-  resizeCanvas: () => {},
+  clearCanvas: () => {},
   downloadCanvas: () => {},
   drawLine: () => {},
   drawPoint: () => {},
@@ -97,6 +104,19 @@ export const DrawingProvider = ({ children }) => {
     }
   };
 
+  const clearCanvas = () => {
+    const canvas = canvasRef.current;
+    const ctx = canvasCtxRef.current;
+    ctx.fillStyle = CANVAS_BG_COLOR;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    deleteFromIndexedDB({
+      dbName: INDEX_DB,
+      storeName: INDEX_DB_STORE,
+      key: INDEX_DB_KEY,
+    });
+  };
+
   const drawPoint = (x, y) => {
     const ctx = canvasCtxRef.current;
     const { offsetX, offsetY } = rotationOffsets.current;
@@ -120,7 +140,7 @@ export const DrawingProvider = ({ children }) => {
   const stopDrawing = () => {
     isDrawingRef.current = false;
     try {
-      saveCanvasToLS();
+      saveCanvas();
     } catch (error) {
       console.error('Error saving canvas:', error);
     }
@@ -162,26 +182,37 @@ export const DrawingProvider = ({ children }) => {
     updateStrokeWidth(ctx.lineWidth);
   };
 
-  const getCanvasImageURL = () => {
+  const downloadCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) {
       console.error('Canvas ref element not found');
       return null;
     }
-    return canvas.toDataURL('image/png');
-  };
-
-  const downloadCanvas = () => {
-    const canvasURL = getCanvasImageURL();
+    const canvasURL = canvas.toDataURL('image/png');
     const link = document.createElement('a');
     link.href = canvasURL;
     link.setAttribute('download', 'my_jennur_art.png');
     link.click();
   };
 
-  const saveCanvasToLS = () => {
-    const canvasURL = getCanvasImageURL();
-    localStorage.setItem(CANVAS_LS_KEY, canvasURL);
+  const saveCanvas = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) {
+      console.error('Canvas ref element not found');
+      return;
+    }
+    canvas.toBlob((blob) => {
+      if (blob) {
+        saveToIndexedDB({
+          dbName: INDEX_DB,
+          storeName: INDEX_DB_STORE,
+          data: blob,
+          key: INDEX_DB_KEY,
+        });
+      } else {
+        console.error('Failed to convert canvas to blob');
+      }
+    });
   };
 
   const showShapePreview = (event) => {
@@ -219,15 +250,26 @@ export const DrawingProvider = ({ children }) => {
     canvasCtxRef.current = ctx;
   };
 
-  const restoreContextState = () => {
+  const restoreContextState = async () => {
     const canvas = canvasRef.current;
-    const savedURL = localStorage.getItem(CANVAS_LS_KEY);
     const ctx = canvasCtxRef.current;
 
-    if (savedURL) {
+    if (!canvas) {
+      console.error('Canvas ref element not found');
+      return;
+    }
+    const blob = await getFromIndexedDB({
+      dbName: INDEX_DB,
+      storeName: INDEX_DB_STORE,
+      key: INDEX_DB_KEY,
+    });
+
+    const canvasURL = blob ? URL.createObjectURL(blob) : null;
+
+    if (canvasURL) {
       try {
         const storedCanvasImg = new Image();
-        storedCanvasImg.src = savedURL;
+        storedCanvasImg.src = canvasURL;
         storedCanvasImg.onload = () => {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           ctx.drawImage(
@@ -291,6 +333,7 @@ export const DrawingProvider = ({ children }) => {
   return (
     <DrawingContext.Provider
       value={{
+        clearCanvas,
         downloadCanvas,
         drawLine,
         drawPoint,

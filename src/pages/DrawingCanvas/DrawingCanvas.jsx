@@ -1,13 +1,19 @@
 import styles from './DrawingCanvas.module.scss';
-import { DownloadIcon } from '../../assets/icons';
+import { DownloadIcon, XIcon } from '../../assets/icons';
 import { useDrawing } from '../../context';
 import BrushControls from '../../components/BrushControls/BrushControls';
 import ColorButton from '../../components/ColorButton/ColorButton';
 import ColorSwatches from '../../components/ColorSwatches/ColorSwatches';
 
 export function DrawingCanvas() {
-  const { downloadCanvas, strokeColor, strokeWidth, activeShape, opacity } =
-    useDrawing();
+  const {
+    clearCanvas,
+    downloadCanvas,
+    strokeColor,
+    strokeWidth,
+    activeShape,
+    opacity,
+  } = useDrawing();
 
   return (
     <section className={styles.drawingCanvas}>
@@ -27,6 +33,11 @@ export function DrawingCanvas() {
           text={window.innerWidth > 900 ? 'Download my masterpiece!' : ''}
           icon={<DownloadIcon />}
           onClick={downloadCanvas}
+        />
+        <ColorButton
+          text={window.innerWidth > 900 ? 'Start over' : ''}
+          icon={<XIcon />}
+          onClick={clearCanvas}
         />
       </div>
 

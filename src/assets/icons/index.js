@@ -1,4 +1,5 @@
 import BitbucketIcon from './bitbucket-icon';
+import BrushIcon from './brush-icon';
 import CalendarCheckIcon from './calendar-check';
 import DownloadIcon from './download-icon';
 import EnvelopeIcon from './envelope-icon';
@@ -9,9 +10,11 @@ import LinkIcon from './link-icon';
 import MinusIcon from './minus-icon';
 import PlusIcon from './plus-icon';
 import RotateIcon from './rotate-icon';
+import XIcon from './x-icon';
 
 export {
   BitbucketIcon,
+  BrushIcon,
   CalendarCheckIcon,
   DownloadIcon,
   EnvelopeIcon,
@@ -22,4 +25,5 @@ export {
   MinusIcon,
   PlusIcon,
   RotateIcon,
+  XIcon,
 };

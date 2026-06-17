@@ -37,7 +37,10 @@
   }
 
   .topBar {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: $spacingMd;
     position: absolute;
     top: $spacing2XL;
     right: $spacingLg;
