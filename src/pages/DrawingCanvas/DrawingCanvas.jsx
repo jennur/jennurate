@@ -1,5 +1,5 @@
 import styles from './DrawingCanvas.module.scss';
-import { DownloadIcon, XIcon } from '../../assets/icons';
+import { DownloadIcon, RotateLeftIcon, XIcon } from '../../assets/icons';
 import { useDrawing } from '../../context';
 import BrushControls from '../../components/BrushControls/BrushControls';
 import ColorButton from '../../components/ColorButton/ColorButton';
@@ -8,6 +8,10 @@ import ColorSwatches from '../../components/ColorSwatches/ColorSwatches';
 export function DrawingCanvas() {
   const {
     clearCanvas,
+    undo,
+    redo,
+    canUndo,
+    canRedo,
     downloadCanvas,
     strokeColor,
     strokeWidth,
@@ -25,19 +29,32 @@ export function DrawingCanvas() {
           height: `${strokeWidth}px`,
           backgroundColor: strokeColor,
           opacity: opacity,
+          display: window.innerWidth > 900 ? 'block' : 'none',
         }}
       ></div>
 
       <div className={styles.topBar}>
         <ColorButton
+          text={window.innerWidth > 900 ? 'Undo' : ''}
+          icon={<RotateLeftIcon />}
+          onClick={undo}
+          disabled={!canUndo}
+        />
+        <ColorButton
+          text={window.innerWidth > 900 ? 'Redo' : ''}
+          icon={<RotateLeftIcon />}
+          onClick={redo}
+          disabled={!canRedo}
+        />
+        <ColorButton
+          text={window.innerWidth > 900 ? 'Clear' : ''}
+          icon={<XIcon />}
+          onClick={clearCanvas}
+        />
+        <ColorButton
           text={window.innerWidth > 900 ? 'Download my masterpiece!' : ''}
           icon={<DownloadIcon />}
           onClick={downloadCanvas}
-        />
-        <ColorButton
-          text={window.innerWidth > 900 ? 'Start over' : ''}
-          icon={<XIcon />}
-          onClick={clearCanvas}
         />
       </div>
 

@@ -3,10 +3,13 @@
 
 .footer {
   margin: 0 auto;
+
   .badgeList {
     list-style: none;
     padding: 0;
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
     gap: $spacingMd;
     padding: $spacingLg $spacingMd;

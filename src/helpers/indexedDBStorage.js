@@ -30,7 +30,6 @@ export async function saveToIndexedDB({ dbName, storeName, data, key }) {
       const request = store.put(data, key);
 
       request.onsuccess = () => {
-        console.log('Data saved to IndexedDB successfully');
         resolve();
       };
 
@@ -76,7 +75,6 @@ export async function deleteFromIndexedDB({ dbName, storeName, key }) {
       const request = store.delete(key);
 
       request.onsuccess = () => {
-        console.log('Data deleted from IndexedDB successfully');
         resolve();
       };
 

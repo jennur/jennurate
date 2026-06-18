@@ -32,6 +32,10 @@ const MIN_STROKE_WIDTH = 5;
 
 const DrawingContext = createContext({
   clearCanvas: () => {},
+  undo: () => {},
+  redo: () => {},
+  canUndo: false,
+  canRedo: false,
   downloadCanvas: () => {},
   drawLine: () => {},
   drawPoint: () => {},
@@ -59,6 +63,11 @@ export const DrawingProvider = ({ children }) => {
   const [rotation, setRotation] = useState(DEFAULT_ROTATION);
   const [opacity, setOpacity] = useState(DEFAULT_OPACITY);
   const [offsets, setOffsets] = useState(DEFAULT_OFFSETS);
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+
+  const historyRef = useRef([]);
+  const redoStackRef = useRef([]);
 
   const canvasRef = useRef(null);
   const canvasCtxRef = useRef(null);
@@ -109,12 +118,75 @@ export const DrawingProvider = ({ children }) => {
     const ctx = canvasCtxRef.current;
     ctx.fillStyle = CANVAS_BG_COLOR;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+    historyRef.current = [];
+    redoStackRef.current = [];
+    saveToHistory();
+    updateUndoRedoState();
 
     deleteFromIndexedDB({
       dbName: INDEX_DB,
       storeName: INDEX_DB_STORE,
       key: INDEX_DB_KEY,
     });
+  };
+
+  const drawImage = (image) => {
+    const canvas = canvasRef.current;
+    const ctx = canvasCtxRef.current;
+    const img = new Image();
+    img.src = image;
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.width,
+        canvas.height,
+        0,
+        0,
+        canvas.width / CANVAS_SCALE,
+        canvas.height / CANVAS_SCALE
+      );
+    };
+  };
+
+  const updateUndoRedoState = () => {
+    setCanUndo(() => historyRef.current.length > 1);
+    setCanRedo(() => redoStackRef.current.length > 0);
+  };
+
+  const undo = () => {
+    if (historyRef.current.length === 0) return;
+
+    const newHistory = [...historyRef.current];
+    const currentImage = newHistory.pop();
+    const prevImage = newHistory[newHistory.length - 1];
+
+    historyRef.current = newHistory;
+    redoStackRef.current = [...redoStackRef.current, currentImage];
+
+    drawImage(prevImage);
+    updateUndoRedoState();
+  };
+
+  const redo = () => {
+    if (redoStackRef.current.length === 0) return;
+    const newRedoStack = [...redoStackRef.current];
+    const lastUndoneImage = newRedoStack.pop();
+    redoStackRef.current = newRedoStack;
+    historyRef.current = [...historyRef.current, lastUndoneImage];
+
+    drawImage(lastUndoneImage);
+    updateUndoRedoState();
+  };
+
+  const saveToHistory = () => {
+    const canvas = canvasRef.current;
+    const image = canvas.toDataURL('image/png');
+    historyRef.current = [...historyRef.current, image];
+    redoStackRef.current = [];
+    updateUndoRedoState();
   };
 
   const drawPoint = (x, y) => {
@@ -139,6 +211,9 @@ export const DrawingProvider = ({ children }) => {
 
   const stopDrawing = () => {
     isDrawingRef.current = false;
+
+    saveToHistory();
+
     try {
       saveCanvas();
     } catch (error) {
@@ -252,7 +327,6 @@ export const DrawingProvider = ({ children }) => {
 
   const restoreContextState = async () => {
     const canvas = canvasRef.current;
-    const ctx = canvasCtxRef.current;
 
     if (!canvas) {
       console.error('Canvas ref element not found');
@@ -276,22 +350,7 @@ export const DrawingProvider = ({ children }) => {
 
     if (canvasURL) {
       try {
-        const storedCanvasImg = new Image();
-        storedCanvasImg.src = canvasURL;
-        storedCanvasImg.onload = () => {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(
-            storedCanvasImg,
-            0,
-            0,
-            canvas.width,
-            canvas.height,
-            0,
-            0,
-            canvas.width / CANVAS_SCALE,
-            canvas.height / CANVAS_SCALE
-          );
-        };
+        drawImage(canvasURL);
       } catch (error) {
         console.error('Error restoring canvas:', error);
       }
@@ -342,6 +401,10 @@ export const DrawingProvider = ({ children }) => {
     <DrawingContext.Provider
       value={{
         clearCanvas,
+        undo,
+        redo,
+        canUndo,
+        canRedo,
         downloadCanvas,
         drawLine,
         drawPoint,

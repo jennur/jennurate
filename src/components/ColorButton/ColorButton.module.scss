@@ -17,9 +17,14 @@
   user-select: none;
   cursor: pointer;
   pointer-events: all;
+  transition: 0.2s;
 
   @media screen and (min-width: $mobileWidth) {
     left: $spacingLg;
+  }
+
+  &:hover {
+    transform: scale(0.95);
   }
 
   &.blue-green {
@@ -74,6 +79,21 @@
     }
 
     &.yellow {
+      @include fill-color($darkGray);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    background-color: $lightGray;
+    color: $darkGray;
+    cursor: not-allowed;
+
+    &:hover {
+      transform: none;
+    }
+
+    .icon {
       @include fill-color($darkGray);
     }
   }

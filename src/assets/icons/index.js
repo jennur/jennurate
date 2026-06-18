@@ -10,6 +10,7 @@ import LinkIcon from './link-icon';
 import MinusIcon from './minus-icon';
 import PlusIcon from './plus-icon';
 import RotateIcon from './rotate-icon';
+import RotateLeftIcon from './rotate-left-icon';
 import XIcon from './x-icon';
 
 export {
@@ -25,5 +26,6 @@ export {
   MinusIcon,
   PlusIcon,
   RotateIcon,
+  RotateLeftIcon,
   XIcon,
 };
