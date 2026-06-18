@@ -120,7 +120,8 @@ export const DrawingProvider = ({ children }) => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     historyRef.current = [];
     redoStackRef.current = [];
-    saveToHistory();
+
+    saveCanvasToHistory();
     updateUndoRedoState();
 
     deleteFromIndexedDB({
@@ -130,7 +131,7 @@ export const DrawingProvider = ({ children }) => {
     });
   };
 
-  const drawImage = (image) => {
+  const drawImageOnCanvas = (image) => {
     const canvas = canvasRef.current;
     const ctx = canvasCtxRef.current;
     const img = new Image();
@@ -161,30 +162,28 @@ export const DrawingProvider = ({ children }) => {
   const undo = () => {
     if (historyRef.current.length === 0) return;
 
-    const newHistory = [...historyRef.current];
-    const currentBlob = newHistory.pop();
-    const prevBlob = newHistory[newHistory.length - 1];
+    const currentBlob = historyRef.current.pop();
+    redoStackRef.current.push(currentBlob);
 
-    historyRef.current = newHistory;
-    redoStackRef.current = [...redoStackRef.current, currentBlob];
-
+    const prevBlob = historyRef.current.slice(-1)[0];
     const prevURL = URL.createObjectURL(prevBlob);
-    drawImage(prevURL);
+
+    drawImageOnCanvas(prevURL);
     updateUndoRedoState();
   };
 
   const redo = () => {
     if (redoStackRef.current.length === 0) return;
-    const newRedoStack = [...redoStackRef.current];
-    const lastUndoneBlob = newRedoStack.pop();
-    redoStackRef.current = newRedoStack;
-    historyRef.current = [...historyRef.current, lastUndoneBlob];
+
+    const lastUndoneBlob = redoStackRef.current.pop();
+    historyRef.current.push(lastUndoneBlob);
+
     const lastURL = URL.createObjectURL(lastUndoneBlob);
-    drawImage(lastURL);
+    drawImageOnCanvas(lastURL);
     updateUndoRedoState();
   };
 
-  const saveToHistory = () => {
+  const saveCanvasToHistory = () => {
     const canvas = canvasRef.current;
     canvas.toBlob((blob) => {
       if (blob) {
@@ -222,11 +221,10 @@ export const DrawingProvider = ({ children }) => {
 
   const stopDrawing = () => {
     isDrawingRef.current = false;
-
-    saveToHistory();
+    saveCanvasToHistory();
 
     try {
-      saveCanvas();
+      saveCanvasToIndexedDB();
     } catch (error) {
       console.error('Error saving canvas:', error);
     }
@@ -281,7 +279,7 @@ export const DrawingProvider = ({ children }) => {
     link.click();
   };
 
-  const saveCanvas = () => {
+  const saveCanvasToIndexedDB = () => {
     const canvas = canvasRef.current;
     if (!canvas) {
       console.error('Canvas ref element not found');
@@ -313,7 +311,7 @@ export const DrawingProvider = ({ children }) => {
     shapePreview.style.transform = `rotate(${rotationRef.current}deg)`;
   };
 
-  const initializeCanvas = () => {
+  const initializeCanvasCtx = () => {
     const canvas = document.getElementById('my-jennur-art');
 
     if (!canvas) {
@@ -336,13 +334,14 @@ export const DrawingProvider = ({ children }) => {
     canvasCtxRef.current = ctx;
   };
 
-  const restoreContextState = async () => {
+  const restoreCanvasImage = async () => {
     const canvas = canvasRef.current;
 
     if (!canvas) {
       console.error('Canvas ref element not found');
       return;
     }
+
     const blob = await getFromIndexedDB({
       dbName: INDEX_DB,
       storeName: INDEX_DB_STORE,
@@ -351,16 +350,17 @@ export const DrawingProvider = ({ children }) => {
 
     let canvasURL = null;
 
-    if (!blob) {
+    if (blob) {
+      historyRef.current.push(blob);
+      canvasURL = URL.createObjectURL(blob);
+    } else {
       const image = await import('/create-canvas.png');
       canvasURL = image.default;
-    } else {
-      canvasURL = URL.createObjectURL(blob);
     }
 
     if (canvasURL) {
       try {
-        drawImage(canvasURL);
+        drawImageOnCanvas(canvasURL);
       } catch (error) {
         console.error('Error restoring canvas:', error);
       }
@@ -369,40 +369,34 @@ export const DrawingProvider = ({ children }) => {
 
   useEffect(() => {
     const canvas = document.getElementById('my-jennur-art');
+
     if (!canvas) {
       console.error('Canvas element not found');
       return;
     }
 
-    initializeCanvas();
-    restoreContextState();
+    initializeCanvasCtx();
+    restoreCanvasImage();
 
-    canvas.addEventListener('pointermove', (event) => showShapePreview(event));
+    canvas.addEventListener('pointermove', showShapePreview);
 
-    canvas.addEventListener('touchstart', startDrawing, {
-      passive: false,
-    });
-    canvas.addEventListener('touchmove', (e) => drawLine(e), {
-      passive: false,
-    });
-    canvas.addEventListener('mousemove', (e) => drawLine(e), {
-      passive: false,
-    });
-    canvas.addEventListener('mousedown', startDrawing, {
-      passive: false,
-    });
-    canvas.addEventListener('mouseup', stopDrawing, {
-      passive: false,
-    });
+    canvas.addEventListener('touchstart', startDrawing, { passive: false });
+    canvas.addEventListener('touchmove', drawLine, { passive: false });
+    canvas.addEventListener('touchend', stopDrawing, { passive: false });
+
+    canvas.addEventListener('mousedown', startDrawing, { passive: false });
+    canvas.addEventListener('mousemove', drawLine, { passive: false });
+    canvas.addEventListener('mouseup', stopDrawing, { passive: false });
 
     return () => {
       canvas.removeEventListener('pointermove', showShapePreview);
-      canvas.removeEventListener('touchstart', startDrawing);
-      canvas.removeEventListener('touchend', stopDrawing);
-      canvas.removeEventListener('touchmove', drawLine);
 
-      canvas.removeEventListener('mousemove', drawLine);
+      canvas.removeEventListener('touchstart', startDrawing);
+      canvas.removeEventListener('touchmove', drawLine);
+      canvas.removeEventListener('touchend', stopDrawing);
+
       canvas.removeEventListener('mousedown', startDrawing);
+      canvas.removeEventListener('mousemove', drawLine);
       canvas.removeEventListener('mouseup', stopDrawing);
     };
   }, []);
