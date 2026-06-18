@@ -1,8 +1,9 @@
 import styles from './ColorSwatches.module.scss';
 import { useDrawing } from '../../context';
+import ColorPicker from '../ColorPicker/ColorPicker';
 
-export default function ColorSwatches({ className }) {
-  const { colors, updateColor } = useDrawing();
+export default function ColorSwatches({ className = "" }) {
+  const { colors, updateColor, strokeColor } = useDrawing();
 
   return (
     <div className={`${styles.colorSwatches} ${className}`}>
@@ -16,6 +17,7 @@ export default function ColorSwatches({ className }) {
           ></button>
         );
       })}
+      <ColorPicker color={strokeColor} onChange={(event, newColor) => updateColor(event, newColor)} />
     </div>
   );
 }
