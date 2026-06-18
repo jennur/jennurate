@@ -354,7 +354,7 @@ export const DrawingProvider = ({ children }) => {
       historyRef.current.push(blob);
       canvasURL = URL.createObjectURL(blob);
     } else {
-      const image = await import('/create-canvas.png');
+      const image = await import('/create-canvas.webp');
       canvasURL = image.default;
     }
 
