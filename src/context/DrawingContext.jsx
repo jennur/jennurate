@@ -264,7 +264,15 @@ export const DrawingProvider = ({ children }) => {
       key: INDEX_DB_KEY,
     });
 
-    const canvasURL = blob ? URL.createObjectURL(blob) : null;
+    let canvasURL = null;
+
+    if (!blob) {
+      const image = await import('/create-canvas.png');
+      console.log('Default canvas image imported:', image);
+      canvasURL = image.default;
+    } else {
+      canvasURL = URL.createObjectURL(blob);
+    }
 
     if (canvasURL) {
       try {
