@@ -38,7 +38,7 @@
 
   .topBar {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: $spacingMd;
     position: absolute;
@@ -49,6 +49,14 @@
 
     @media screen and (min-width: $mobileWidth) {
       top: $spacingLg;
+      flex-direction: row;
+    }
+
+    .clearButton {
+      order: -4;
+      @media screen and (min-width: $mobileWidth) {
+        order: 0;
+      }
     }
   }
 

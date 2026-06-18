@@ -2,7 +2,13 @@ import { cloneElement } from 'react';
 import styles from './ColorButton.module.scss';
 import { useThemeColor } from '../../context';
 
-export default function ColorButton({ text, icon, onClick, disabled }) {
+export default function ColorButton({
+  text,
+  icon,
+  onClick,
+  disabled,
+  className,
+}) {
   const { color: themeColor } = useThemeColor();
 
   const iconClone = icon
@@ -17,6 +23,7 @@ export default function ColorButton({ text, icon, onClick, disabled }) {
         styles.colorButton,
         styles[themeColor],
         disabled ? styles.disabled : '',
+        className,
       ].join(' ')}
       onClick={(event) => {
         event.stopPropagation();

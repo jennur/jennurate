@@ -55,6 +55,7 @@ export function DrawingCanvas() {
           text={window.innerWidth > 900 ? 'Clear' : ''}
           icon={<XIcon />}
           onClick={clearCanvas}
+          className={styles.clearButton}
         />
         <ColorButton
           text={window.innerWidth > 900 ? 'Download my masterpiece!' : ''}
