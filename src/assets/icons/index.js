@@ -11,6 +11,7 @@ import MinusIcon from './minus-icon';
 import PlusIcon from './plus-icon';
 import RotateIcon from './rotate-icon';
 import RotateLeftIcon from './rotate-left-icon';
+import RotateRightIcon from './rotate-right-icon';
 import XIcon from './x-icon';
 
 export {
@@ -27,5 +28,6 @@ export {
   PlusIcon,
   RotateIcon,
   RotateLeftIcon,
+  RotateRightIcon,
   XIcon,
 };

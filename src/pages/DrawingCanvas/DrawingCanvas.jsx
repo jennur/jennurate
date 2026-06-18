@@ -1,5 +1,10 @@
 import styles from './DrawingCanvas.module.scss';
-import { DownloadIcon, RotateLeftIcon, XIcon } from '../../assets/icons';
+import {
+  DownloadIcon,
+  RotateLeftIcon,
+  RotateRightIcon,
+  XIcon,
+} from '../../assets/icons';
 import { useDrawing } from '../../context';
 import BrushControls from '../../components/BrushControls/BrushControls';
 import ColorButton from '../../components/ColorButton/ColorButton';
@@ -42,7 +47,7 @@ export function DrawingCanvas() {
         />
         <ColorButton
           text={window.innerWidth > 900 ? 'Redo' : ''}
-          icon={<RotateLeftIcon />}
+          icon={<RotateRightIcon />}
           onClick={redo}
           disabled={!canRedo}
         />
