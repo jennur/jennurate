@@ -206,8 +206,8 @@ export const DrawingProvider = ({ children }) => {
     ctx.beginPath();
     ctx.moveTo(x, y);
 
-    if (activeShapeRef.current === 'butt' && offsetX === 0 && offsetY === 0) {
-      ctx.lineTo(x - 1, y); // Add offset for 'butt' shape to make it visible
+    if (offsetX === 0 && offsetY === 0) {
+      ctx.lineTo(x - 1, y); // Add offset to ensure it draws a point even when rotation is 0
     } else {
       ctx.lineTo(x + offsetX, y + offsetY);
     }
