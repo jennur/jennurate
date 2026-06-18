@@ -136,6 +136,7 @@ export const DrawingProvider = ({ children }) => {
     const img = new Image();
     img.src = image;
     img.onload = () => {
+      ctx.globalAlpha = 1; // Reset opacity to ensure the image is drawn at full opacity
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(
         img,
@@ -148,6 +149,7 @@ export const DrawingProvider = ({ children }) => {
         canvas.width / CANVAS_SCALE,
         canvas.height / CANVAS_SCALE
       );
+      ctx.globalAlpha = opacity;
     };
   };
 
@@ -160,33 +162,42 @@ export const DrawingProvider = ({ children }) => {
     if (historyRef.current.length === 0) return;
 
     const newHistory = [...historyRef.current];
-    const currentImage = newHistory.pop();
-    const prevImage = newHistory[newHistory.length - 1];
+    const currentBlob = newHistory.pop();
+    const prevBlob = newHistory[newHistory.length - 1];
 
     historyRef.current = newHistory;
-    redoStackRef.current = [...redoStackRef.current, currentImage];
+    redoStackRef.current = [...redoStackRef.current, currentBlob];
 
-    drawImage(prevImage);
+    const prevURL = URL.createObjectURL(prevBlob);
+    drawImage(prevURL);
     updateUndoRedoState();
   };
 
   const redo = () => {
     if (redoStackRef.current.length === 0) return;
     const newRedoStack = [...redoStackRef.current];
-    const lastUndoneImage = newRedoStack.pop();
+    const lastUndoneBlob = newRedoStack.pop();
     redoStackRef.current = newRedoStack;
-    historyRef.current = [...historyRef.current, lastUndoneImage];
-
-    drawImage(lastUndoneImage);
+    historyRef.current = [...historyRef.current, lastUndoneBlob];
+    const lastURL = URL.createObjectURL(lastUndoneBlob);
+    drawImage(lastURL);
     updateUndoRedoState();
   };
 
   const saveToHistory = () => {
     const canvas = canvasRef.current;
-    const image = canvas.toDataURL('image/png');
-    historyRef.current = [...historyRef.current, image];
-    redoStackRef.current = [];
-    updateUndoRedoState();
+    canvas.toBlob((blob) => {
+      if (blob) {
+        const lastThreeEntries = historyRef.current.slice(-3);
+        historyRef.current = [...lastThreeEntries, blob];
+        redoStackRef.current = [];
+        updateUndoRedoState();
+      } else {
+        console.error(
+          'Failed to save canvas to history: Blob conversion failed'
+        );
+      }
+    });
   };
 
   const drawPoint = (x, y) => {
@@ -342,7 +353,6 @@ export const DrawingProvider = ({ children }) => {
 
     if (!blob) {
       const image = await import('/create-canvas.png');
-      console.log('Default canvas image imported:', image);
       canvasURL = image.default;
     } else {
       canvasURL = URL.createObjectURL(blob);
