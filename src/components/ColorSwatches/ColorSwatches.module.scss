@@ -4,9 +4,11 @@
   display: flex;
   gap: $spacingSm;
   justify-content: center;
+  flex-wrap: wrap;
   background-color: rgba($lightGray, 0.3);
   padding: $spacingSm;
   width: max-content;
+  max-width: 100%;
 
   .swatch {
     border: none;

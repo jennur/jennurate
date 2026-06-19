@@ -7,9 +7,11 @@
   gap: $spacingSm;
   margin-left: $spacingMd;
 
-  // .label {
-
-  // }
+  .label {
+    font-size: $fontSizeSm;
+    user-select: none;
+    background-color: $darkGray;
+  }
 
   .input {
     appearance: none;

@@ -78,6 +78,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: max-content;
+    max-width: calc(100% - 2 * $spacingLg);
     z-index: 2;
     pointer-events: none;
   }
